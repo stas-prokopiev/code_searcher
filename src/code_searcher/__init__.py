@@ -11,7 +11,7 @@ library.
 """
 
 
-from .code_searcher_class import code_searcher_class
+from code_searcher.code_searcher_class import code_searcher_class
 
 __all__ = [
     # Core classes

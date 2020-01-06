@@ -1,4 +1,4 @@
-# Coding: utf-8
+# -*- coding: utf-8 -*-
 """
 code_searcher.additional_functions
 ~~~~~~~~~~~~

@@ -17,11 +17,11 @@ from collections import OrderedDict
 from collections import Counter
 
 
-from decorators import check_type_of_arguments
-from working_with_files import get_dict_str_full_file_by_rel_path
-from additional_functions import get_names_of_all_functions_defined_in_py_code
-from additional_functions import get_list_modules_imported_in_py_code
-from working_with_files import \
+from code_searcher.decorators import check_type_of_arguments
+from code_searcher.working_with_files import get_dict_str_full_file_by_rel_path
+from code_searcher.additional_functions import get_names_of_all_functions_defined_in_py_code
+from code_searcher.additional_functions import get_list_modules_imported_in_py_code
+from code_searcher.working_with_files import \
     get_list_str_filenames_of_all_files_with_given_extension
 
 

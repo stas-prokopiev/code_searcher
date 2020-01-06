@@ -11,7 +11,7 @@ Very UNLIKELY that you will need them.
 :license: MIT, see LICENSE.rst for more details.
 """
 from __future__ import print_function
-from decorators import check_type_of_arguments
+from code_searcher.decorators import check_type_of_arguments
 
 
 @check_type_of_arguments

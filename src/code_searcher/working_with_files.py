@@ -14,7 +14,7 @@ from __future__ import print_function
 import os
 import codecs
 import json    # or `import simplejson as json` if on Python < 2.6
-from decorators import check_type_of_arguments
+from code_searcher.decorators import check_type_of_arguments
 
 
 @check_type_of_arguments

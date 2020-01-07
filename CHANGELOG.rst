@@ -2,6 +2,9 @@
 Changelog
 =========
 
+Version 0.1.1 (fixed readme mistakes)
+=================================
+
 Version 0.1.0 (Initial release.)
 =================================
 

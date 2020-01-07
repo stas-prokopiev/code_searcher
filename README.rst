@@ -79,6 +79,8 @@ there is the main folder for all .ipynb files then use them.
 4) To get the number of not empty code lines in the library
 --------------------------------------------------------------------------------------------------
 
+*It can be used to measure your everyday performance*
+
 .. code-block:: python
 
     code_searcher_obj.get_number_of_lines_in_the_library()
@@ -118,7 +120,7 @@ code_searcher_obj attributes
 code_searcher_obj Methods
 -------------------------
 
-    **search_all_occurrences_of_some_code_in_my_python_library**
+    **search_all_occurrences_of_the_code_in_the_library**
         *Searching some code inside whole library and print all occurrences in a formatted way*
 
     **update_files**
@@ -138,6 +140,27 @@ code_searcher_obj Methods
 
     **get_list_of_all_outer_modules_used_in_library**
         *Getting list of all OUTER modules imported in the library*
+
+Links
+=====
+
+    * `Pypi <https://pypi.org/project/code-searcher/>`_
+
+    * `GitHub <https://github.com/stas-prokopiev/code_searcher>`_
+
+Releases
+========
+
+See `CHANGELOG <https://github.com/stas-prokopiev/code_searcher/blob/master/CHANGELOG.rst>`_.
+
+Contributing
+============
+
+- Fork it (<https://github.com/stas-prokopiev/code_searcher/fork>)
+- Create your feature branch (`git checkout -b feature/fooBar`)
+- Commit your changes (`git commit -am 'Add some fooBar'`)
+- Push to the branch (`git push origin feature/fooBar`)
+- Create a new Pull Request
 
 Contacts
 ========

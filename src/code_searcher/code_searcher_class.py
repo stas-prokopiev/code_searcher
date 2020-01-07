@@ -42,7 +42,7 @@ class code_searcher_class():
 
     Methods
     -------
-    search_all_occurrences_of_some_code_in_my_python_library(
+    search_all_occurrences_of_the_code_in_the_library(
     str_code_to_search,
     bool_is_to_search_case_sensitive=True,
     )
@@ -64,7 +64,7 @@ class code_searcher_class():
     get_number_of_lines_in_the_library()
         Getting number of not empty lines in whole library
 
-    get_list_of_all_outer_modules_used_in_library()
+    get_list_of_all_outer_modules_used_in_the_library()
         Getting list of all OUTER modules imported in the library
     """
 

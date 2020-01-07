@@ -7,8 +7,11 @@ Overview
 
 code_searcher is a simple Python module with the main purpose is to
 help support changes in any function signature inside your project
-(Currently supported file types are **.py** and **.ipynb**).
-It's becoming quite useful when your project outgrows 1k lines of code and manual replacement becomes too annoying.
+
+(Currently, fully supported file types only are **.py** and **.ipynb**
+nonetheless, search functional can be applied to any file extensions which can be read as plain text in utf-8 encoding).
+
+It's becoming quite useful when your project outgrows 1k lines of code and manual replacement becomes too annoying (Too easy to overlook replacement somewhere).
 
 Also, this package allows you get some statistics about your project for more info check section: **Typical examples of Usage**
 
@@ -51,8 +54,12 @@ there is the main folder for all .ipynb files then use them.
 
 
 
-1) You've changed a function signature and want to do necessary changes in the library.
+1) To find all occurrences of some code.
 --------------------------------------------------------------------------------------------------
+
+*You've changed a function signature and want to do necessary changes in the library.*
+
+*To find all the places where this function was used use the code below*
 
 .. code-block:: python
 
@@ -68,8 +75,10 @@ there is the main folder for all .ipynb files then use them.
 
     print(code_searcher_obj)
 
-3) You've updated files and want to download up to date versions before searching.
+3) To reload files to up to date versions before searching.
 --------------------------------------------------------------------------------------------------
+
+*You've changed something inside code of your library and want update code for code_searcher*
 
 .. code-block:: python
 

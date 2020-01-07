@@ -249,9 +249,9 @@ class code_searcher_class():
                             " Code_line: ", str_line.strip()
                         )
                         int_occurrences_found += 1
-                #####
-                if int_occurrences_found:
-                    print("#" * 79)
+            #####
+            if int_occurrences_found:
+                print("#" * 79)
         print("Overall occurrences found: ", int_occurrences_found)
         return int_occurrences_found
 

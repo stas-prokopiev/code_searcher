@@ -5,15 +5,17 @@ CODE_SEARCHER
 Overview
 ========
 
-code_searcher is a simple Python module with the main purpose is to
-help support changes in any function signature inside your project
+code_searcher is a simple Python package(**py>=2.7 or py>=3.4**) with the main purpose to
+help support changes in any function signature inside your project.
 
-(Currently, fully supported file types only are **.py** and **.ipynb**
+(Currently, fully supported file types are **.py** and **.ipynb**
 nonetheless, search functional can be applied to any file extensions which can be read as plain text in utf-8 encoding).
 
 It's becoming quite useful when your project outgrows 1k lines of code and manual replacement becomes too annoying (Too easy to overlook replacement somewhere).
 
-Also, this package allows you get some statistics about your project for more info check section: **Typical examples of Usage**
+Also, this package allows you get some statistics about your project.
+
+For more info check section: **Typical examples of Usage**
 
 Installation
 ============
@@ -112,44 +114,6 @@ there is the main folder for all .ipynb files then use them.
 
     code_searcher_obj.get_list_of_all_outer_modules_used_in_the_library()
 
-Full elaboration on code_searcher_obj
-======================================
-
-code_searcher_obj attributes
-----------------------------
-    **list_str_folders_where_to_look**: list
-        *list most parent folders where to look for code files*
-
-    **list_str_file_extensions** : list
-        *list strings file extensions which files to explore*
-
-    **dict_dict_str_file_by_filename_by_folder** : dict
-        *{folder_path: {relative_file_path: string_whole_file, ...}, ...}*
-
-code_searcher_obj Methods
--------------------------
-
-    **search_all_occurrences_of_the_code_in_the_library**
-        *Searching some code inside whole library and print all occurrences in a formatted way*
-
-    **update_files**
-        *Redownloading all files if something was changed inside them*
-
-    **get_file_stats_of_the_code_library**
-        *Getting string statistic about files in the library*
-
-    **get_dict_times_functions_used**
-        *Getting {function_name: times_function_used, ...}*
-
-    **get_names_of_all_functions_defined_but_never_used**
-        *Getting the list of functions defined inside code but never used*
-
-    **get_number_of_lines_in_the_library**
-        *Getting number of not empty lines in the whole library*
-
-    **get_list_of_all_outer_modules_used_in_library**
-        *Getting list of all OUTER modules imported in the library*
-
 Links
 =====
 
@@ -174,7 +138,7 @@ Contributing
 Contacts
 ========
 
-    * email: stas.prokopiev@gmail.com
+    * Email: stas.prokopiev@gmail.com
 
     * `vk.com <https://vk.com/stas.prokopyev>`_
 

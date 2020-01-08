@@ -66,6 +66,8 @@ class code_searcher_class():
 
     get_list_of_all_outer_modules_used_in_the_library()
         Getting list of all OUTER modules imported in the library
+    --------------------------------------------------------------------
+    --------------------------------------------------------------------
     """
 
     @check_type_of_arguments
@@ -109,8 +111,11 @@ class code_searcher_class():
         """
         str_obj_repr = ""
         str_obj_repr += (
-            "This is obj that allows you to search through "
-            "your project codebase for code in python and ipynb files\n\n"
+            "This is an obj that allows you to search through "
+            "your project codebase\n"
+            "for getting names of available functions "
+            "use help() on current obj"
+            "\n\n"
         )
         str_obj_repr += "Folders to search in: \n"
         for str_folder in self.list_str_folders_where_to_look:
@@ -172,6 +177,7 @@ class code_searcher_class():
     def download_files(self):
         """Download code files in dict_dict_str_file_by_filename_by_folder"""
         float_time_start = time.time()
+        int_files_downloaded = 0
         dict_dict_str_file_by_filename_by_folder = OrderedDict()
         # For every folder where to look download code files
         for str_folder_path in self.list_str_folders_where_to_look:
@@ -185,13 +191,17 @@ class code_searcher_class():
                 dict_str_full_file_by_rel_path.update(
                     dict_str_full_file_by_rel_path_tmp
                 )
+                int_files_downloaded += len(dict_str_full_file_by_rel_path_tmp)
             dict_dict_str_file_by_filename_by_folder[str_folder_path] = \
                 dict_str_full_file_by_rel_path
         self.dict_dict_str_file_by_filename_by_folder = \
             dict_dict_str_file_by_filename_by_folder
         float_seconds_spent = round(time.time() - float_time_start, 2)
         print(
-            "Files were downloaded in {} seconds".format(float_seconds_spent)
+            "{} Files were downloaded in {} seconds".format(
+                int_files_downloaded,
+                float_seconds_spent
+            )
         )
 
     @check_type_of_arguments

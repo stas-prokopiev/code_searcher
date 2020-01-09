@@ -48,7 +48,7 @@ there is the main folder for all .ipynb files then use them.
 .. code-block:: python
 
     from code_searcher import code_searcher_class
-    list_str_file_extensions = ["path_to_folder_1", "path_to_folder_2", ...]
+    list_str_folders_where_to_look = ["path_to_folder_1", "path_to_folder_2", ...]
     code_searcher_obj = code_searcher_class(
             list_str_folders_where_to_look,
             list_str_file_extensions=[".py", "ipynb"],

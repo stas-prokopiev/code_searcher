@@ -139,7 +139,7 @@ def get_list_str_filenames_of_all_files_with_given_extension(
                 list_str_filenames.append(str_filename)
     # Clear filenames from extension .py
     list_str_filenames_cleared = [
-        str_filename.replace(".py", "")
+        str_filename.replace(str_extension_to_look_for, "")
         for str_filename in list_str_filenames
     ]
     return list_str_filenames_cleared

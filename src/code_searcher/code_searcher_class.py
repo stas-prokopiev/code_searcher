@@ -11,6 +11,7 @@ library
 """
 from __future__ import print_function
 import time
+import os
 
 from collections import defaultdict
 from collections import OrderedDict
@@ -58,11 +59,14 @@ class code_searcher_class():
     get_dict_times_functions_used()
         Getting {function_name: times_function_used, ...}
 
-    get_names_of_all_functions_defined_but_never_used()
-        Getting list of functions defined inside code but never used
-
     get_number_of_lines_in_the_library()
         Getting number of not empty lines in whole library
+
+    get_dict_num_of_code_lines_by_extension()
+        Getting dict number of not empty lines by file extension type
+
+    get_names_of_all_functions_defined_but_never_used()
+        Getting list of functions defined inside code but never used
 
     get_list_of_all_outer_modules_used_in_the_library()
         Getting list of all OUTER modules imported in the library
@@ -121,8 +125,8 @@ class code_searcher_class():
         for str_folder in self.list_str_folders_where_to_look:
             str_obj_repr += "--> " + str_folder + "\n"
         str_obj_repr += "Extensions to check: \n"
-        for str_extension in self.list_str_file_extensions:
-            str_obj_repr += "--> " + str_extension + "\n"
+        for str_ext in self.list_str_file_extensions:
+            str_obj_repr += "--> " + str_ext + "\n"
         str_obj_repr += self.get_file_stats_of_the_code_library()
         return str_obj_repr
 
@@ -142,8 +146,13 @@ class code_searcher_class():
             File statistic of current obj
         """
         str_stats = ""
-        int_code_lines = self.get_number_of_lines_in_the_library()
-        str_stats += "Code lines: " + str(int_code_lines) + "\n\n"
+        dict_num_of_code_lines_by_ext = \
+            self.get_dict_num_of_code_lines_by_extension()
+        str_stats += (
+            "Code lines: " +
+            str(dict_num_of_code_lines_by_ext["overall"]) +
+            "\n\n"
+        )
         str_stats += "Files Statistic of current code library:\n"
         # Print file statistic for every folder
         for str_folder in self.dict_dict_str_file_by_filename_by_folder:
@@ -155,17 +164,23 @@ class code_searcher_class():
             str_stats += " found files with extensions:\n"
             #####
             # Count number of files with every extension
-            for str_extension in self.list_str_file_extensions:
+            for str_ext in self.list_str_file_extensions:
                 for str_filename in list_filenames:
-                    if str_filename.endswith(str_extension):
-                        counter_int_files_by_extension[str_extension] += 1
+                    if str_filename.endswith(str_ext):
+                        counter_int_files_by_extension[str_ext] += 1
                         # counter_int_files_by_extension["overall"] += 1
             #####
             # Add number of files with every extension to stats
-            for str_extension in counter_int_files_by_extension:
-                str_stats += "----> {extension}: {int_files}\n".format(
-                    extension=str_extension,
-                    int_files=counter_int_files_by_extension[str_extension]
+            for str_ext in counter_int_files_by_extension:
+                str_stats += (
+                    "----> {extension}: "
+                    "files_found = {int_files}  "
+                    "Code_lines = {int_lines}  "
+                    "\n"
+                ).format(
+                    extension=str_ext,
+                    int_files=counter_int_files_by_extension[str_ext],
+                    int_lines=dict_num_of_code_lines_by_ext[str_ext],
                 )
             #####
             str_stats += "=" * 79 + "\n"
@@ -182,11 +197,11 @@ class code_searcher_class():
         # For every folder where to look download code files
         for str_folder_path in self.list_str_folders_where_to_look:
             dict_str_full_file_by_rel_path = OrderedDict()
-            for str_extension in self.list_str_file_extensions:
+            for str_ext in self.list_str_file_extensions:
                 dict_str_full_file_by_rel_path_tmp = \
                     get_dict_str_full_file_by_rel_path(
                         str_folder_path,
-                        str_extension_to_look_for=str_extension,
+                        str_extension_to_look_for=str_ext,
                     )
                 dict_str_full_file_by_rel_path.update(
                     dict_str_full_file_by_rel_path_tmp
@@ -314,6 +329,31 @@ class code_searcher_class():
         return sorted(list_str_never_used_functions)
 
     @check_type_of_arguments
+    def get_dict_num_of_code_lines_by_extension(self):
+        """Getting dict number of not empty lines by file extension type
+
+        Returns
+        -------
+        dict
+            {".py": X, ".ipynb": Y, ...}
+        """
+        counter_num_of_code_lines_by_ext = Counter()
+        counter_num_of_code_lines_by_ext["overall"] = 0
+        for str_folder in self.dict_dict_str_file_by_filename_by_folder:
+            dict_str_file_by_filename = \
+                self.dict_dict_str_file_by_filename_by_folder[str_folder]
+            for str_filename in dict_str_file_by_filename:
+                str_ext = "." + os.path.basename(str_filename).split(".")[-1]
+                str_whole_file = dict_str_file_by_filename[str_filename]
+                int_lines_found = \
+                    str_whole_file.count('\n') + 1
+                counter_num_of_code_lines_by_ext[str_ext] += \
+                    int_lines_found
+                counter_num_of_code_lines_by_ext["overall"] += \
+                    int_lines_found
+        return counter_num_of_code_lines_by_ext
+
+    @check_type_of_arguments
     def get_number_of_lines_in_the_library(self):
         """Getting number of not empty lines in whole library
 
@@ -373,7 +413,7 @@ class code_searcher_class():
             list_names_of_all_py_files_in_library += \
                 get_list_str_filenames_of_all_files_with_given_extension(
                     str_folder_where_to_look,
-                    str_extension_to_look_for=".py"
+                    str_ext_to_look_for=".py"
                 )
         return set(list_names_of_all_py_files_in_library)
 

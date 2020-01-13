@@ -79,3 +79,26 @@ def get_list_modules_imported_in_py_code(str_py_code):
             # print("---> ", str_module_name, "\n")
             continue
     return list_imported_modules_found
+
+
+def get_number_of_lines_in_string(str_string):
+    """Get number of not empty code lines in the string
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+    int
+        Number of not empty code lines in the string
+    """
+    int_lines = 0
+    for str_line in str_string.splitlines():
+        if str_line.strip():
+            int_lines += 1
+    return int_lines
+
+
+
+
+

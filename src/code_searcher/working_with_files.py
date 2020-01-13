@@ -101,6 +101,13 @@ def get_list_str_path_all_files_with_given_extension(
     for str_parent_folder, _, list_str_child_filenames in os.walk(
         str_folder_where_to_look
     ):
+        #####
+        # If file is ipynb, then do no take files from folder checkpoints
+        if str_extension_to_look_for == ".ipynb":
+            str_par_folder_name = os.path.basename(str_parent_folder)
+            if ".ipynb_checkpoints" == str_par_folder_name:
+                continue
+        #####
         for str_filename in list_str_child_filenames:
             if str_filename.endswith(str_extension_to_look_for):
                 list_str_path_all_files_with_given_extension.append(
@@ -143,6 +150,44 @@ def get_list_str_filenames_of_all_files_with_given_extension(
         for str_filename in list_str_filenames
     ]
     return list_str_filenames_cleared
+
+
+@check_type_of_arguments
+def get_file_extension(str_file_path):
+    """Get file extension by file path
+
+    Parameters
+    ----------
+    str_file_path : str
+        path to file which extension to return
+
+    Returns
+    -------
+    str
+        string file extension for given file
+    """
+    return str(os.path.splitext(str_file_path)[1])
+
+
+@check_type_of_arguments
+def get_file_as_string(str_file_path):
+    """Get content of file as string for any type of file
+
+    Parameters
+    ----------
+    str_file_path : str
+        path to file which to return as string
+
+    Returns
+    -------
+    str
+        string content inside file
+    """
+    str_ext = get_file_extension(str_file_path)
+    if str_ext == ".ipynb":
+        return read_ipynb_file(str_file_path)
+    else:
+        return read_whole_file(str_file_path)
 
 
 @check_type_of_arguments

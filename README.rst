@@ -70,15 +70,15 @@ But after finding all files they won't be redownloaded again unless they were ch
         bool_is_to_search_case_sensitive=True,
     )
 
-*Output example*
+*Output:*
 
-.. code-block:: python
+.. code-block:: console
 
-   For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
-   --> For extension: .py
-   ----> Found in:  additional_functions.py
-   ------>  0 ) line: 17  Code_line: def get_names_of_all_functions_defined_in_py_code(str_py_code):
-   ------>  1 ) line: 31  Code_line: list_all_defines_start = str_py_code.split("def ")
+    For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
+    --> For extension: .py
+    ----> Found in:  additional_functions.py
+    ------>  0 ) line: 17  Code_line: def get_names_of_all_functions_defined_in_py_code(str_py_code):
+    ------>  1 ) line: 31  Code_line: list_all_defines_start = str_py_code.split("def ")
 
 
 2) To see some statistics about your library.
@@ -87,6 +87,29 @@ But after finding all files they won't be redownloaded again unless they were ch
 .. code-block:: python
 
     print(code_searcher_obj)
+    
+*Output:*
+
+.. code-block:: console
+
+    Folders to search in: 
+    --> c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
+    --> C:/Users/Stanislav/Desktop/websim/ALL_WEBSIM_SCRIPTS/working_with_EXPRESSION_alphas/DASHBOARD
+    Extensions to check: 
+    --> .py
+    --> ipynb
+
+    Files Statistic of current code library:
+    --> For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
+    --> Files_found = 5  Code_lines = 981
+    ----> .py:  Files_found = 5;  Code_lines = 981;  
+    ----> ipynb:  Files_found = 0;  Code_lines = 0;  
+    ===============================================================================
+    --> For folder: C:/Users/Stanislav/Desktop/websim/ALL_WEBSIM_SCRIPTS/working_with_EXPRESSION_alphas/DASHBOARD
+    --> Files_found = 4  Code_lines = 175
+    ----> .py:  Files_found = 0;  Code_lines = 0;  
+    ----> ipynb:  Files_found = 4;  Code_lines = 175;  
+    ===============================================================================
 
 3) To add new files to examine.
 --------------------------------------------------------------------------------------------------
@@ -116,6 +139,15 @@ But after finding all files they won't be redownloaded again unless they were ch
 
     code_searcher_obj.get_names_of_all_py_functions_defined_but_never_used()
 
+.. code-block:: console
+
+    Found functions defined:  18
+    Found never used functions:  4
+    ['check_type_of_arguments',
+     'echo_func',
+     'get_dict_str_full_file_by_rel_path',
+     'hello']
+
 6) To check which OUTER modules were imported in the library. (NOT STABLE)
 --------------------------------------------------------------------------------------------------
 
@@ -124,6 +156,24 @@ But after finding all files they won't be redownloaded again unless they were ch
 .. code-block:: python
 
     code_searcher_obj.get_list_of_all_outer_modules_used_in_the_library()
+
+.. code-block:: console
+
+    Overall unique modules imported:  12
+    Overall OUTER unique modules imported:  12
+    ['__future__',
+     'code_searcher',
+     'codecs',
+     'collections',
+     'init_notebook_mode',
+     'json',
+     'os',
+     'plotly',
+     'sys',
+     'time',
+     'tools',
+     'tqdm']
+
 
 Links
 =====

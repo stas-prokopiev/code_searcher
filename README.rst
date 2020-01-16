@@ -139,6 +139,8 @@ But after finding all files they won't be redownloaded again unless they were ch
 
     code_searcher_obj.get_names_of_all_py_functions_defined_but_never_used()
 
+*Output:*
+
 .. code-block:: console
 
     Found functions defined:  18
@@ -156,6 +158,8 @@ But after finding all files they won't be redownloaded again unless they were ch
 .. code-block:: python
 
     code_searcher_obj.get_list_of_all_outer_modules_used_in_the_library()
+
+*Output:*
 
 .. code-block:: console
 

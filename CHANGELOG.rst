@@ -2,9 +2,12 @@
 Changelog
 =========
 
-Version 0.1.8 (Some changes)
+Version 0.1.7-8 (Some changes)
 =================================
-
+- Added searching with re patterns.
+- Added method to print places where line length exceeds certain limit.
+- Made functions to search 1) unused functions and 2) outer imported modules stable.
+- Small changes in format of functions output. 
 
 Version 0.1.6 (Huge changes)
 =================================

@@ -6,7 +6,7 @@ Short Overview.
 =========================
 
 code_searcher is a simple Python package(**py>=2.7 or py>=3.4**) with the main purpose to
-make searching through your the project codebase fast and simple. 
+make searching through your project codebase fast and simple. 
 
 Currently, fully supported file types are **.py** and **.ipynb**
 nonetheless, search functional can be applied to any file extensions which can be read as plain text in utf-8 encoding.
@@ -29,7 +29,7 @@ For example, this package allows you:
 
     1) To get names of all outer packages used inside your project to build a short requirements.txt.
     2) To get names of all functions that were defined but never used (to keep your code as short as possible)
-    3) To print all places where length of code line exceeds some N (If you want to make your code complaint with pep8 code length condition)
+    3) To print all places where length of code line exceeds some N (If you want make your code complaint with pep8 code length condition)
     4) To get content of all files with asked extensions directly.
     5) To print some statistics about your codebase (Like number of non empty code lines per extension per folder).
     
@@ -118,20 +118,20 @@ But after finding all files they won't be redownloaded again unless they were ch
 
 .. code-block:: console
 
-For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
+    For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
 
-    --> For extension: .py
-    ----> Found in:  additional_functions.py
-    ------> 0) line: 12  Code_line: from __future__ import print_function
-    ----> Found in:  code_searcher_class.py
-    ------> 1) line: 11  Code_line: from __future__ import print_function
-    ----> Found in:  decorators.py
-    ------> 2) line: 12  Code_line: from __future__ import print_function
-    ----> Found in:  working_with_files.py
-    ------> 3) line: 12  Code_line: from __future__ import print_function
+        --> For extension: .py
+        ----> Found in:  additional_functions.py
+        ------> 0) line: 12  Code_line: from __future__ import print_function
+        ----> Found in:  code_searcher_class.py
+        ------> 1) line: 11  Code_line: from __future__ import print_function
+        ----> Found in:  decorators.py
+        ------> 2) line: 12  Code_line: from __future__ import print_function
+        ----> Found in:  working_with_files.py
+        ------> 3) line: 12  Code_line: from __future__ import print_function
 
-    --> For extension: ipynb
-    ----> NOTHING FOUND.
+        --> For extension: ipynb
+        ----> NOTHING FOUND.
 
 3) To see some statistics about your library.
 ------------------------------------------------------
@@ -171,7 +171,6 @@ For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\pro
 .. code-block:: python
 
     code_searcher_obj.update_files()
-    # Any code
 
 5) To check which functions were defined but never used.
 --------------------------------------------------------------------------------------------------
@@ -264,8 +263,6 @@ For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\pro
 
 9) To get the number of not empty code lines in the library
 --------------------------------------------------------------------------------------------------
-
-*It can be used to measure your everyday performance*
 
 .. code-block:: python
 

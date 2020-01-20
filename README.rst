@@ -2,18 +2,38 @@
 CODE_SEARCHER
 =============
 
-Overview
-========
+Short Overview.
+=========================
 
 code_searcher is a simple Python package(**py>=2.7 or py>=3.4**) with the main purpose to
-help support changes in any function signature inside your project.
+make searching through your the project codebase fast and simple. 
 
-(Currently, fully supported file types are **.py** and **.ipynb**
-nonetheless, search functional can be applied to any file extensions which can be read as plain text in utf-8 encoding).
+Currently, fully supported file types are **.py** and **.ipynb**
+nonetheless, search functional can be applied to any file extensions which can be read as plain text in utf-8 encoding.
 
-It's becoming quite useful when your project outgrows 1k lines of code and manual replacement becomes too annoying (Too easy to overlook replacement somewhere).
+In additional it allows you to get some useful info about your project codebase. 
+For more info check section: **Typical examples of Usage**
 
-Also, this package allows you to get some statistics about your project. For more info check section: **Typical examples of Usage**
+More info.
+=========================
+
+The main reason of building this package was to create universal 
+tool to help support changes in functions signatures in both .py and .ipynb files. 
+
+It's becoming quite useful when your project outgrows 1k lines of code and manual replacement becomes too annoying 
+(Too easy to overlook replacement somewhere).
+
+But in a time this package becomes something a little bit large than that.
+
+For example, this package allows you:
+
+    1) To get names of all outer packages used inside your project to build a short requirements.txt.
+    2) To get names of all functions that were defined but never used (to keep your code as short as possible)
+    3) To print all places where length of code line exceeds some N (If you want to make your code complaint with pep8 code length condition)
+    4) To get content of all files with asked extensions directly.
+    5) To print some statistics about your codebase (Like number of non empty code lines per extension per folder).
+    
+For more info check section: **Typical examples of Usage**
 
 Installation
 ============
@@ -66,7 +86,7 @@ But after finding all files they won't be redownloaded again unless they were ch
 .. code-block:: python
 
     code_searcher_obj.search_code_in_the_library(
-        str_code_to_search="previous_function_name(",
+        str_code_to_search="print_places_where_line_length_exceed_N",
         bool_is_to_search_case_sensitive=True,
     )
 
@@ -75,13 +95,45 @@ But after finding all files they won't be redownloaded again unless they were ch
 .. code-block:: console
 
     For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
+
+    --> For extension: .py
+    ----> Found in:  code_searcher_class.py
+    ------> 0) line: 93  Code_line: print_places_where_line_length_exceed_N(
+    ------> 1) line: 444  Code_line: def print_places_where_line_length_exceed_N(
+
+    --> For extension: ipynb
+    ----> NOTHING FOUND.
+    
+    
+2) To find all occurrences of some regular expression pattern
+--------------------------------------------------------------------------------------------------
+    
+.. code-block:: python
+
+    code_searcher_obj.search_code_in_the_library_with_re(
+        str_code_to_search="^from __future__ import[\s]+"
+    )
+
+*Output:*
+
+.. code-block:: console
+
+For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
+
     --> For extension: .py
     ----> Found in:  additional_functions.py
-    ------>  0 ) line: 17  Code_line: def get_names_of_all_functions_defined_in_py_code(str_py_code):
-    ------>  1 ) line: 31  Code_line: list_all_defines_start = str_py_code.split("def ")
+    ------> 0) line: 12  Code_line: from __future__ import print_function
+    ----> Found in:  code_searcher_class.py
+    ------> 1) line: 11  Code_line: from __future__ import print_function
+    ----> Found in:  decorators.py
+    ------> 2) line: 12  Code_line: from __future__ import print_function
+    ----> Found in:  working_with_files.py
+    ------> 3) line: 12  Code_line: from __future__ import print_function
 
+    --> For extension: ipynb
+    ----> NOTHING FOUND.
 
-2) To see some statistics about your library.
+3) To see some statistics about your library.
 ------------------------------------------------------
 
 .. code-block:: python
@@ -92,45 +144,36 @@ But after finding all files they won't be redownloaded again unless they were ch
 
 .. code-block:: console
 
-    Folders to search in:
+    Folders to search in: 
     --> c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
-    --> C:/Users/Stanislav/Desktop/websim/ALL_WEBSIM_SCRIPTS/working_with_EXPRESSION_alphas/DASHBOARD
-    Extensions to check:
+    --> c:\users\stanislav\desktop\websim\all_websim_scripts\working_with_expression_alphas\dashboard
+    Extensions to check: 
     --> .py
     --> ipynb
 
     Files Statistic of current code library:
     --> For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
-    --> Files_found = 5  Code_lines = 981
-    ----> .py:  Files_found = 5;  Code_lines = 981;
-    ----> ipynb:  Files_found = 0;  Code_lines = 0;
+    --> Files_found = 5  Code_lines = 1203
+    ----> .py:  Files_found = 5;  Code_lines = 1203;  
+    ----> ipynb:  Files_found = 0;  Code_lines = 0;  
     ===============================================================================
-    --> For folder: C:/Users/Stanislav/Desktop/websim/ALL_WEBSIM_SCRIPTS/working_with_EXPRESSION_alphas/DASHBOARD
+    --> For folder: c:\users\stanislav\desktop\websim\all_websim_scripts\working_with_expression_alphas\dashboard
     --> Files_found = 4  Code_lines = 175
-    ----> .py:  Files_found = 0;  Code_lines = 0;
-    ----> ipynb:  Files_found = 4;  Code_lines = 175;
+    ----> .py:  Files_found = 0;  Code_lines = 0;  
+    ----> ipynb:  Files_found = 4;  Code_lines = 175;  
     ===============================================================================
 
-3) To add new files to examine.
+4) To add new files to examine.
 --------------------------------------------------------------------------------------------------
 
-*You've created a new file inside folder given to code_searcher and want update files for code_searcher so that it will be checked too*
+*If you've created a new file inside folder given to code_searcher then you should update files for code_searcher*
 
 .. code-block:: python
 
     code_searcher_obj.update_files()
     # Any code
 
-4) To get the number of not empty code lines in the library
---------------------------------------------------------------------------------------------------
-
-*It can be used to measure your everyday performance*
-
-.. code-block:: python
-
-    code_searcher_obj.get_number_of_lines_in_the_library()
-
-5) To check which functions were defined but never used. (NOT STABLE)
+5) To check which functions were defined but never used.
 --------------------------------------------------------------------------------------------------
 
 *It can be used in order to have your library as short as possible.*
@@ -143,14 +186,11 @@ But after finding all files they won't be redownloaded again unless they were ch
 
 .. code-block:: console
 
-    Found functions defined:  18
-    Found never used functions:  4
-    ['check_type_of_arguments',
-     'echo_func',
-     'get_dict_str_full_file_by_rel_path',
-     'hello']
+    Found functions defined:  30
+    Found never used functions:  2
+    ['bool_search_of_code_with_re', 'bool_simple_search_of_code']
 
-6) To check which OUTER modules were imported in the library. (NOT STABLE)
+6) To check which OUTER modules were imported in the library.
 --------------------------------------------------------------------------------------------------
 
 *It can be used in order to have only used packages in the virtual environment*
@@ -163,21 +203,73 @@ But after finding all files they won't be redownloaded again unless they were ch
 
 .. code-block:: console
 
-    Overall unique modules imported:  12
-    Overall OUTER unique modules imported:  12
-    ['__future__',
-     'code_searcher',
-     'codecs',
-     'collections',
-     'init_notebook_mode',
-     'json',
-     'os',
-     'plotly',
-     'sys',
-     'time',
-     'tools',
-     'tqdm']
+    Overall unique modules imported:  10
+    --> STANDARD library packages used:  8
+    ---->  0 ) os
+    ---->  1 ) json
+    ---->  2 ) re
+    ---->  3 ) __future__
+    ---->  4 ) codecs
+    ---->  5 ) collections
+    ---->  6 ) sys
+    ---->  7 ) time
+    --> OUTER packages imported:  2
+    ---->  0 ) code_searcher :  0.0.0
+    ---->  1 ) stdlib_list :  0.6.0
 
+7) To get dictionary with content of all satisfy files.
+--------------------------------------------------------------------------------------------------
+
+*For now on this dictionary structure is* 
+
+*{"dir_path_1": {"file_extension_1": {"absosut_file_path_1": str_file_content, ..}, ..}, ..}*
+
+.. code-block:: python
+
+    code_searcher_obj.dict_str_file_by_path_by_ext_by_dir
+
+
+8) To print places where line length exceeds certain limit
+--------------------------------------------------------------------------------------------------
+
+*If you want to search only through .py files but code_searcher_obj was initialized for [".py", "ipynb"]*
+
+*you can give to argument list_str_file_extensions=[".py"]*
+        
+.. code-block:: python
+
+    code_searcher_obj.print_places_where_line_length_exceed_N(int_max_length=78, list_str_file_extensions=None,)
+
+*Output:*
+
+.. code-block:: console
+
+    For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
+
+    --> For extension: .py
+    ----> Found in:  code_searcher_class.py
+    ------> 0) line: 63  Length: 79
+    ------> 1) line: 151  Length: 79
+    ------> 2) line: 153  Length: 79
+    ------> 3) line: 156  Length: 79
+    ------> 4) line: 583  Length: 80
+    ------> 5) line: 594  Length: 79
+    ------> 6) line: 719  Length: 79
+    ----> Found in:  decorators.py
+    ------> 7) line: 50  Length: 79
+    ------> 8) line: 63  Length: 79
+
+    --> For extension: ipynb
+    ----> NOTHING FOUND.
+
+9) To get the number of not empty code lines in the library
+--------------------------------------------------------------------------------------------------
+
+*It can be used to measure your everyday performance*
+
+.. code-block:: python
+
+    code_searcher_obj.get_number_of_lines_in_the_library()
 
 Links
 =====

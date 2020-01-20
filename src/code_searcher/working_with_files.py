@@ -40,7 +40,7 @@ def read_whole_file(str_path_to_file, str_encoding="utf-8"):
         errors="ignore"
     ) as file:
         str_whole_file = file.read()
-    return str_whole_file
+    return str_whole_file  # .encode("utf-8")
 
 
 @check_type_of_arguments
@@ -63,7 +63,7 @@ def read_ipynb_file(str_path_to_file):
         return ""
     str_full_ipynb_file = ""
     for int_cell_num, dict_cell in enumerate(dict_ipynb_file["cells"]):
-        str_cell_num = "[{}] ".format(int_cell_num)
+        str_cell_num = "[In {}] ".format(int_cell_num)
         str_cell_full_code = ""
         for str_one_line_of_code in dict_cell["source"]:
             if not str_one_line_of_code.strip():
@@ -189,38 +189,3 @@ def get_file_as_string(str_file_path):
     else:
         return read_whole_file(str_file_path)
 
-
-@check_type_of_arguments
-def get_dict_str_full_file_by_rel_path(
-        str_folder_where_to_look,
-        str_extension_to_look_for=".py",
-):
-    """Getting dict with full file code by relative file path
-
-    Parameters
-    ----------
-    str_folder_where_to_look : str
-        path to most parent folder where to look for files
-    str_extension_to_look_for  : str
-        extension of file which to look for
-
-    Returns
-    -------
-    dict
-        dict with full file code by relative file path
-    """
-    dict_str_full_file_by_rel_path = {}
-    # Getting pathes to all files with asked extension in the folder
-    list_str_path_all_files_with_given_extension = \
-        get_list_str_path_all_files_with_given_extension(
-            str_folder_where_to_look,
-            str_extension_to_look_for=str_extension_to_look_for
-        )
-    for str_file_path in list_str_path_all_files_with_given_extension:
-        if str_extension_to_look_for.lower() in ["ipynb", ".ipynb"]:
-            str_full_current_file = read_ipynb_file(str_file_path)
-        else:
-            str_full_current_file = read_whole_file(str_file_path)
-        str_rel_path = os.path.relpath(str_file_path, str_folder_where_to_look)
-        dict_str_full_file_by_rel_path[str_rel_path] = str_full_current_file
-    return dict_str_full_file_by_rel_path

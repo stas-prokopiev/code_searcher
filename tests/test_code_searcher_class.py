@@ -18,8 +18,8 @@ def test_code_searcher_class():
         list_str_file_extensions=[".py"],
     )
     int_occurences = \
-        code_searcher_obj.search_all_occurrences_of_the_code_in_the_library(
-            "class code_searcher_class"
+        code_searcher_obj.search_code_in_the_library(
+            str("class code_searcher_class")
         )
     assert int_occurences == 1, "ERROR: my_tmp"
 
@@ -37,7 +37,7 @@ def test_code_searcher_class():
 #             list_str_file_extensions=[".py"],
 #         )
 #         int_occurences = \
-#             code_searcher_obj.search_all_occurrences_of_the_code_in_the_library(
+#             code_searcher_obj.search_code_in_the_library(
 #                 "class code_searcher_class"
 #             )
 #         self.assertEqual(int_occurences, 1)

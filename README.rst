@@ -65,7 +65,7 @@ But after finding all files they won't be redownloaded again unless they were ch
 
 .. code-block:: python
 
-    code_searcher_obj.search_all_occurrences_of_the_code_in_the_library(
+    code_searcher_obj.search_code_in_the_library(
         str_code_to_search="previous_function_name(",
         bool_is_to_search_case_sensitive=True,
     )
@@ -87,28 +87,28 @@ But after finding all files they won't be redownloaded again unless they were ch
 .. code-block:: python
 
     print(code_searcher_obj)
-    
+
 *Output:*
 
 .. code-block:: console
 
-    Folders to search in: 
+    Folders to search in:
     --> c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
     --> C:/Users/Stanislav/Desktop/websim/ALL_WEBSIM_SCRIPTS/working_with_EXPRESSION_alphas/DASHBOARD
-    Extensions to check: 
+    Extensions to check:
     --> .py
     --> ipynb
 
     Files Statistic of current code library:
     --> For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
     --> Files_found = 5  Code_lines = 981
-    ----> .py:  Files_found = 5;  Code_lines = 981;  
-    ----> ipynb:  Files_found = 0;  Code_lines = 0;  
+    ----> .py:  Files_found = 5;  Code_lines = 981;
+    ----> ipynb:  Files_found = 0;  Code_lines = 0;
     ===============================================================================
     --> For folder: C:/Users/Stanislav/Desktop/websim/ALL_WEBSIM_SCRIPTS/working_with_EXPRESSION_alphas/DASHBOARD
     --> Files_found = 4  Code_lines = 175
-    ----> .py:  Files_found = 0;  Code_lines = 0;  
-    ----> ipynb:  Files_found = 4;  Code_lines = 175;  
+    ----> .py:  Files_found = 0;  Code_lines = 0;
+    ----> ipynb:  Files_found = 4;  Code_lines = 175;
     ===============================================================================
 
 3) To add new files to examine.
@@ -157,7 +157,7 @@ But after finding all files they won't be redownloaded again unless they were ch
 
 .. code-block:: python
 
-    code_searcher_obj.get_list_of_all_outer_modules_used_in_the_library()
+    code_searcher_obj.get_names_of_outer_modules_used_in_the_library()
 
 *Output:*
 

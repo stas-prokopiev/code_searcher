@@ -2,6 +2,10 @@
 Changelog
 =========
 
+Version 0.1.8 (Some changes)
+=================================
+
+
 Version 0.1.6 (Huge changes)
 =================================
 - New way of dealing with files, now instead of dowloading all files again and again

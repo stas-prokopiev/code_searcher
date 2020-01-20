@@ -11,6 +11,7 @@ Very UNLIKELY that you will need them.
 :license: MIT, see LICENSE.rst for more details.
 """
 from __future__ import print_function
+import sys
 
 
 def check_with_assert_that_var_given_to_func_has_asked_type(
@@ -80,11 +81,15 @@ def check_type_of_arguments(func_to_check):
                 continue
             # Checking with assert that given variable has asked type
             if str_variable_name.startswith("str_"):
+                if sys.version_info[0] == 2:
+                    tuple_types_to_check = (str, bytes, unicode)
+                else:
+                    tuple_types_to_check = (str, bytes)
                 check_with_assert_that_var_given_to_func_has_asked_type(
                     str_function_name,
                     str_variable_name,
                     variable_value,
-                    (str, bytes),
+                    tuple_types_to_check,
                 )
             elif str_variable_name.startswith("bool_"):
                 check_with_assert_that_var_given_to_func_has_asked_type(

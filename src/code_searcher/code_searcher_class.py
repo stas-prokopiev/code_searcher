@@ -9,6 +9,9 @@ code library
 :copyright: © 2019 by Stanislav Prokopyev stas.prokopiev@gmail.com.
 :license: MIT, see LICENSE.rst for more details.
 """
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 import time
 import os
 import sys
@@ -40,10 +43,6 @@ from code_searcher.working_with_files import \
     get_list_str_path_all_files_with_given_extension
 from code_searcher.working_with_files import \
     get_file_as_string
-if sys.version_info[0] == 2:
-    from __future__ import absolute_import
-    from __future__ import division
-    from __future__ import print_function
 #####
 
 

@@ -33,9 +33,9 @@ def test_code_searcher_class():
     #####
     # Test print_places_where_line_length_exceed_N
     int_times = code_searcher_obj.print_places_where_line_length_exceed_N(
-        int_max_length=50,
+        int_max_length=80,
     )
-    assert int_times > 10, \
+    assert int_times < 2, \
         "ERROR: 'print_places_where_line_length_exceed_N' not working"
     #####
     # Test get_names_functions_defined_in_the_py_library

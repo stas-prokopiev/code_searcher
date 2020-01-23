@@ -10,15 +10,13 @@ Very UNLIKELY that you will need them.
 :copyright: © 2019 by Stanislav Prokopyev stas.prokopiev@gmail.com.
 :license: MIT, see LICENSE.rst for more details.
 """
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 import os
-import sys
 import codecs
 import json    # or `import simplejson as json` if on Python < 2.6
 from code_searcher.decorators import check_type_of_arguments
-if sys.version_info[0] == 2:
-    from __future__ import absolute_import
-    from __future__ import division
-    from __future__ import print_function
 
 
 @check_type_of_arguments

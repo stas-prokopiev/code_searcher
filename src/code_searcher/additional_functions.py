@@ -10,15 +10,13 @@ Very UNLIKELY that you will need them.
 :copyright: © 2019 by Stanislav Prokopyev stas.prokopiev@gmail.com.
 :license: MIT, see LICENSE.rst for more details.
 """
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 from code_searcher.decorators import check_type_of_arguments
 import re
 import os
-import sys
 from stdlib_list import stdlib_list
-if sys.version_info[0] == 2:
-    from __future__ import absolute_import
-    from __future__ import division
-    from __future__ import print_function
 
 
 @check_type_of_arguments
@@ -39,7 +37,7 @@ def get_names_of_all_functions_defined_in_py_code(str_py_code):
     str_re_pattern = r"^[\s]*def[\s]*([\w]*)[\s]*[(]"
     for str_one_line in str_py_code.splitlines():
         for match_obj in re.finditer(str_re_pattern, str_one_line):
-            list_names_of_all_functions_defined.append(match_obj[1])
+            list_names_of_all_functions_defined.append(match_obj.group(1))
     return list_names_of_all_functions_defined
 
 
@@ -65,17 +63,17 @@ def get_list_modules_imported_in_py_code(str_py_code):
     for str_one_code_line in str_py_code.splitlines():
         # Searching for line like " from something import something(*)"
         for match_obj in re.finditer(str_re_pattern_1, str_one_code_line):
-            str_module_name = match_obj[1]
+            str_module_name = match_obj.group(1)
             str_module_name = str_module_name.split(".")[0]
             list_imported_modules_found.append(str_module_name)
-            # print(match_obj[1])
+            # print(match_obj.group(1))
         #####
         # Searching for line like "import something"
         for match_obj in re.finditer(str_re_pattern_2, str_one_code_line):
-            str_module_name = match_obj[1]
+            str_module_name = match_obj.group(1)
             str_module_name = str_module_name.split(".")[0]
             list_imported_modules_found.append(str_module_name)
-            # print(match_obj[1])
+            # print(match_obj.group(1))
     return list_imported_modules_found
 
 

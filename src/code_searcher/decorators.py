@@ -10,8 +10,13 @@ Very UNLIKELY that you will need them.
 :copyright: © 2019 by Stanislav Prokopyev stas.prokopiev@gmail.com.
 :license: MIT, see LICENSE.rst for more details.
 """
-from __future__ import print_function
+
+
 import sys
+if sys.version_info[0] == 2:
+    from __future__ import absolute_import
+    from __future__ import division
+    from __future__ import print_function
 
 
 def check_with_assert_that_var_given_to_func_has_asked_type(

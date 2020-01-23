@@ -9,9 +9,9 @@ code library
 :copyright: © 2019 by Stanislav Prokopyev stas.prokopiev@gmail.com.
 :license: MIT, see LICENSE.rst for more details.
 """
-from __future__ import print_function
 import time
 import os
+import sys
 
 from collections import defaultdict
 from collections import OrderedDict
@@ -40,6 +40,10 @@ from code_searcher.working_with_files import \
     get_list_str_path_all_files_with_given_extension
 from code_searcher.working_with_files import \
     get_file_as_string
+if sys.version_info[0] == 2:
+    from __future__ import absolute_import
+    from __future__ import division
+    from __future__ import print_function
 #####
 
 
@@ -97,7 +101,7 @@ class code_searcher_class():
     )
         Function print all places where line length exceen N symbols
 
-    get_names_of_all_functions_defined_in_the_py_library
+    get_names_functions_defined_in_the_py_library
         Getting set names of all functions defined in the library
 
     get_dict_times_py_functions_used()
@@ -519,9 +523,10 @@ class code_searcher_class():
             #####
             if int_occurrences_found:
                 print("=" * 79)
+        return int_occurrences_found
 
     @check_type_of_arguments
-    def get_names_of_all_functions_defined_in_the_py_library(self):
+    def get_names_functions_defined_in_the_py_library(self):
         """Getting set names of all functions defined in the library
 
         Parameters
@@ -574,7 +579,7 @@ class code_searcher_class():
         """
         defdict_times_functions_used = defaultdict(int)
         set_str_all_funcs_defined = \
-            self.get_names_of_all_functions_defined_in_the_py_library()
+            self.get_names_functions_defined_in_the_py_library()
         # For every folder searching through all files inside folder
         for str_dir in self.dict_str_file_by_path_by_ext_by_dir:
             dict_str_file_by_path_by_ext = \

@@ -11,25 +11,28 @@ __location__ = os.path.join(os.getcwd(), os.path.dirname(
 
 #####
 # My function to copy all .rst files in the docs folder
-print("*" * 79)
-print("Copying all .rst files from:")
-copy_rst_from_here = os.path.abspath('../..')
-past_rst_here = os.path.abspath('.')
-print(copy_rst_from_here)
-print(past_rst_here)
-list_files_to_copy = [
-    os.path.join(copy_rst_from_here, f)
-    for f in os.listdir(copy_rst_from_here)
-    if os.path.isfile(os.path.join(copy_rst_from_here, f)) and f.endswith(".rst")
-]
-print("*" * 79)
-print("Files will be copied: ")
-for int_file_num, str_file_path in enumerate(list_files_to_copy):
-    str_filename = os.path.basename(str_file_path)
-    print("--> ", int_file_num, ")", str_filename)
-    str_new_path = os.path.join(past_rst_here, str_filename)
-    shutil.copyfile(str_file_path, str_new_path)
-print("*" * 79)
+try:
+    print("*" * 79)
+    print("Copying all .rst files from:")
+    copy_rst_from_here = os.path.abspath('../..')
+    past_rst_here = os.path.abspath('.')
+    print(copy_rst_from_here)
+    print(past_rst_here)
+    list_files_to_copy = [
+        os.path.join(copy_rst_from_here, f)
+        for f in os.listdir(copy_rst_from_here)
+        if os.path.isfile(os.path.join(copy_rst_from_here, f)) and f.endswith(".rst")
+    ]
+    print("*" * 79)
+    print("Files will be copied: ")
+    for int_file_num, str_file_path in enumerate(list_files_to_copy):
+        str_filename = os.path.basename(str_file_path)
+        print("--> ", int_file_num, ")", str_filename)
+        str_new_path = os.path.join(past_rst_here, str_filename)
+        shutil.copyfile(str_file_path, str_new_path)
+    print("*" * 79)
+except BaseException:
+    print("WARNING: Unable to move the .rst files.")
 #####
 
 # -- Run sphinx-apidoc -------------- ----------------------------------------

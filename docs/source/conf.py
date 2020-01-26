@@ -13,7 +13,6 @@ sys.path.insert(0, __location__)
 sys.path.insert(0, os.path.dirname(__location__))
 sys.path.insert(0, os.path.dirname(os.path.dirname(__location__)))
 
-
 #####
 # My function to copy all .rst files in the docs folder
 try:

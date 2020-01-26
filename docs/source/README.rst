@@ -6,21 +6,21 @@ Short Overview.
 =========================
 
 code_searcher is a simple Python package(**py>=2.7 or py>=3.4**) with the main purpose to
-make searching through your project codebase fast and simple. 
+make searching through your project codebase fast and simple.
 
 Currently, fully supported file types are **.py** and **.ipynb**
 nonetheless, search functional can be applied to any file extensions which can be read as plain text in utf-8 encoding.
 
-In additional it allows you to get some useful info about your project codebase. 
+In additional it allows you to get some useful info about your project codebase.
 For more info check section: **Typical examples of Usage**
 
 More info.
 =========================
 
-The main reason of building this package was to create universal 
-tool to help support changes in functions signatures in both .py and .ipynb files. 
+The main reason of building this package was to create universal
+tool to help support changes in functions signatures in both .py and .ipynb files.
 
-It's becoming quite useful when your project outgrows 1k lines of code and manual replacement becomes too annoying 
+It's becoming quite useful when your project outgrows 1k lines of code and manual replacement becomes too annoying
 (Too easy to overlook replacement somewhere).
 
 But in a time this package becomes something a little bit large than that.
@@ -32,7 +32,7 @@ For example, this package allows you:
     3) To print all places where length of code line exceeds some N (If you want make your code complaint with pep8 code length condition)
     4) To get content of all files with asked extensions directly.
     5) To print some statistics about your codebase (Like number of non empty code lines per extension per folder).
-    
+
 For more info check section: **Typical examples of Usage**
 
 Installation
@@ -103,11 +103,11 @@ But after finding all files they won't be redownloaded again unless they were ch
 
     --> For extension: ipynb
     ----> NOTHING FOUND.
-    
-    
+
+
 2) To find all occurrences of some regular expression pattern
 --------------------------------------------------------------------------------------------------
-    
+
 .. code-block:: python
 
     code_searcher_obj.search_code_in_the_library_with_re(
@@ -144,23 +144,23 @@ But after finding all files they won't be redownloaded again unless they were ch
 
 .. code-block:: console
 
-    Folders to search in: 
+    Folders to search in:
     --> c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
     --> c:\users\stanislav\desktop\websim\all_websim_scripts\working_with_expression_alphas\dashboard
-    Extensions to check: 
+    Extensions to check:
     --> .py
     --> ipynb
 
     Files Statistic of current code library:
     --> For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
     --> Files_found = 5  Code_lines = 1203
-    ----> .py:  Files_found = 5;  Code_lines = 1203;  
-    ----> ipynb:  Files_found = 0;  Code_lines = 0;  
+    ----> .py:  Files_found = 5;  Code_lines = 1203;
+    ----> ipynb:  Files_found = 0;  Code_lines = 0;
     ===============================================================================
     --> For folder: c:\users\stanislav\desktop\websim\all_websim_scripts\working_with_expression_alphas\dashboard
     --> Files_found = 4  Code_lines = 175
-    ----> .py:  Files_found = 0;  Code_lines = 0;  
-    ----> ipynb:  Files_found = 4;  Code_lines = 175;  
+    ----> .py:  Files_found = 0;  Code_lines = 0;
+    ----> ipynb:  Files_found = 4;  Code_lines = 175;
     ===============================================================================
 
 4) To add new files to examine.
@@ -219,7 +219,7 @@ But after finding all files they won't be redownloaded again unless they were ch
 7) To get dictionary with content of all satisfy files.
 --------------------------------------------------------------------------------------------------
 
-*For now on this dictionary structure is* 
+*For now on this dictionary structure is*
 
 *{"dir_path_1": {"file_extension_1": {"absosut_file_path_1": str_file_content, ..}, ..}, ..}*
 
@@ -235,6 +235,7 @@ But after finding all files they won't be redownloaded again unless they were ch
 
 *you can give to argument list_str_file_extensions=[".py"]*
         
+
 .. code-block:: python
 
     code_searcher_obj.print_places_where_line_length_exceed_N(int_max_length=78, list_str_file_extensions=None,)
@@ -272,7 +273,7 @@ Links
 =====
 
     * `Pypi <https://pypi.org/project/code-searcher/>`_
-
+    * `readthedocs <https://code-searcher.readthedocs.io/en/latest/>`_
     * `GitHub <https://github.com/stas-prokopiev/code_searcher>`_
 
 Releases

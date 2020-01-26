@@ -11,6 +11,7 @@ pyscaffold = "*"
 
 [packages]
 stdlib-list = "*"
+packagefinder = "*"
 
 [requires]
 python_version = "3.8"

@@ -1,14 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-code_searcher.decorators
-~~~~~~~~~~~~
 
 This module is consists of decorators for code searching
 through your library.
-Very UNLIKELY that you will need them.
-
-:copyright: © 2019 by Stanislav Prokopyev stas.prokopiev@gmail.com.
-:license: MIT, see LICENSE.rst for more details.
 """
 
 
@@ -36,10 +30,6 @@ def check_with_assert_that_var_given_to_func_has_asked_type(
         value of checked variable
     tuple_types_variable_can_be  : tuple or type
         types asked variable can be
-
-    Returns
-    -------
-    None
     """
     assert isinstance(variable_value, tuple_types_variable_can_be), (
         "ERROR: Incorrect type of variables given to function: " +
@@ -59,10 +49,6 @@ def check_type_of_arguments(func_to_check):
     ----------
     func_to_check : str
         Function given to decorator
-
-    Returns
-    -------
-    None
     """
     list_function_arguments = \
         func_to_check.__code__.co_varnames[:func_to_check.__code__.co_argcount]

@@ -1,14 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-code_searcher.working_with_files
-~~~~~~~~~~~~
 
 This module is consists of additional functions for code searching
 through your library.
-Very UNLIKELY that you will need them.
-
-:copyright: © 2019 by Stanislav Prokopyev stas.prokopiev@gmail.com.
-:license: MIT, see LICENSE.rst for more details.
 """
 from __future__ import absolute_import
 from __future__ import division
@@ -19,7 +13,6 @@ import json    # or `import simplejson as json` if on Python < 2.6
 from code_searcher.decorators import check_type_of_arguments
 
 
-@check_type_of_arguments
 def read_whole_file(str_path_to_file, str_encoding="utf-8"):
     """read the whole file with encoding
 
@@ -45,7 +38,6 @@ def read_whole_file(str_path_to_file, str_encoding="utf-8"):
     return str_whole_file  # .encode("utf-8")
 
 
-@check_type_of_arguments
 def read_ipynb_file(str_path_to_file):
     """read the ipynb file as string
 
@@ -76,7 +68,6 @@ def read_ipynb_file(str_path_to_file):
     return str_full_ipynb_file
 
 
-@check_type_of_arguments
 def get_list_str_path_all_files_with_given_extension(
         str_folder_where_to_look,
         str_extension_to_look_for=".py",
@@ -118,7 +109,6 @@ def get_list_str_path_all_files_with_given_extension(
     return list_str_path_all_files_with_given_extension
 
 
-@check_type_of_arguments
 def get_list_str_filenames_of_all_files_with_given_extension(
         str_folder_where_to_look,
         str_extension_to_look_for=".py",
@@ -154,7 +144,6 @@ def get_list_str_filenames_of_all_files_with_given_extension(
     return list_str_filenames_cleared
 
 
-@check_type_of_arguments
 def get_file_extension(str_file_path):
     """Get file extension by file path
 
@@ -171,7 +160,6 @@ def get_file_extension(str_file_path):
     return str(os.path.splitext(str_file_path)[1])
 
 
-@check_type_of_arguments
 def get_file_as_string(str_file_path):
     """Get content of file as string for any type of file
 

@@ -1,14 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-code_searcher.additional_functions
-~~~~~~~~~~~~
 
 This module is consists of additional functions for code searching
 through your library.
-Very UNLIKELY that you will need them.
-
-:copyright: © 2019 by Stanislav Prokopyev stas.prokopiev@gmail.com.
-:license: MIT, see LICENSE.rst for more details.
 """
 from __future__ import absolute_import
 from __future__ import division
@@ -19,7 +13,6 @@ import os
 from stdlib_list import stdlib_list
 
 
-@check_type_of_arguments
 def get_names_of_all_functions_defined_in_py_code(str_py_code):
     """Getting names of all functions defined in the python code
 
@@ -41,7 +34,6 @@ def get_names_of_all_functions_defined_in_py_code(str_py_code):
     return list_names_of_all_functions_defined
 
 
-@check_type_of_arguments
 def get_list_modules_imported_in_py_code(str_py_code):
     """Getting names of all modules imported in the python code
 
@@ -77,14 +69,15 @@ def get_list_modules_imported_in_py_code(str_py_code):
     return list_imported_modules_found
 
 
-@check_type_of_arguments
 def search_code_in_the_library_common_processes(
         dict_str_file_by_path_by_ext_by_dir,
         func_check_if_string_is_in_the_line,
         str_code_to_search,
         bool_is_to_search_case_sensitive=True,
 ):
-    """Searching some code inside whole library and
+    """Searching some code inside whole library
+
+    Searching some code inside whole library and
     print all occurences in nice formatted way
 
     Parameters
@@ -156,7 +149,6 @@ def search_code_in_the_library_common_processes(
     return int_occurrences_found
 
 
-@check_type_of_arguments
 def bool_simple_search_of_code(str_code_to_search, str_where_to_search):
     """Getting names of all modules imported in the python code
 
@@ -173,7 +165,6 @@ def bool_simple_search_of_code(str_code_to_search, str_where_to_search):
     return str_code_to_search in str_where_to_search
 
 
-@check_type_of_arguments
 def bool_search_of_code_with_re(str_re_pattern, str_where_to_search):
     """Getting names of all modules imported in the python code
 
@@ -190,7 +181,6 @@ def bool_search_of_code_with_re(str_re_pattern, str_where_to_search):
     return bool(re.findall(str_re_pattern, str_where_to_search))
 
 
-@check_type_of_arguments
 def get_number_of_lines_in_string(str_string):
     """Get number of not empty code lines in the string
 

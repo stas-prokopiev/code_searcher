@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 code_searcher
-~~~~~
+========================
 code_searcher is a simple Python module with main purpose to
 help support changes in any function signature inside any project or
 library.
-
-:copyright: © 2019 by Stanislav Prokopyev stas.prokopiev@gmail.com.
-:license: MIT, see LICENSE.rst for more details.
 """
 
 

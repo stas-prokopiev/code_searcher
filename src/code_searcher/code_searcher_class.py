@@ -1,13 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-code_searcher.code_searcher_class
-~~~~~~~~~~~~
 
 This module is consists of main class for code searching through your
-code library
-
-:copyright: © 2019 by Stanislav Prokopyev stas.prokopiev@gmail.com.
-:license: MIT, see LICENSE.rst for more details.
+code library.
 """
 from __future__ import absolute_import
 from __future__ import division
@@ -117,17 +112,15 @@ class code_searcher_class():
 
     get_names_of_outer_modules_used_in_the_library()
         Getting list of all OUTER modules imported in the library
-    --------------------------------------------------------------------
-    --------------------------------------------------------------------
     """
 
-    @check_type_of_arguments
     def __init__(
             self,
             list_str_dirs_where_to_look,
             list_str_file_extensions=[".py", "ipynb"],
     ):
-        """
+        """Init object
+
         Parameters
         ----------
         list_str_dirs_where_to_look : list
@@ -172,7 +165,6 @@ class code_searcher_class():
         # self.get_file_stats_of_the_code_library(bool_is_to_print=True)
         # print("Search obj INITIALIZED.")
 
-    @check_type_of_arguments
     def __repr__(self):
         """Representation of obj
 
@@ -198,7 +190,6 @@ class code_searcher_class():
         str_obj_repr += self.get_file_stats_of_the_code_library()
         return str_obj_repr
 
-    @check_type_of_arguments
     def get_file_stats_of_the_code_library(self, bool_is_to_print=False):
         """Getting string with statistics about files in the library
 
@@ -260,7 +251,6 @@ class code_searcher_class():
             print(str_stats)
         return str_stats
 
-    @check_type_of_arguments
     def get_dict_list_file_paths_by_ext_by_dir(self):
         """Getting dict with pathes to asked files by ext by dir
 
@@ -285,7 +275,6 @@ class code_searcher_class():
                 dict_list_file_paths_by_ext
         return dict_list_file_paths_by_ext_by_dir
 
-    @check_type_of_arguments
     def download_files(self):
         """
         For all files defined in self.dict_list_file_paths_by_ext_by_dir
@@ -347,7 +336,6 @@ class code_searcher_class():
                 dict_str_file_by_path_by_ext
         return int_new_files_downloaded
 
-    @check_type_of_arguments
     def update_files(self):
         """Re-search for all files in the folders and download them
 
@@ -361,7 +349,6 @@ class code_searcher_class():
             self.get_dict_list_file_paths_by_ext_by_dir()
         self.download_files()
 
-    @check_type_of_arguments
     def search_code_in_the_library(
             self,
             str_code_to_search,
@@ -393,7 +380,6 @@ class code_searcher_class():
             bool_is_to_search_case_sensitive=bool_is_to_search_case_sensitive,
         )
 
-    @check_type_of_arguments
     def search_code_in_the_library_with_re(
             self,
             str_re_template,
@@ -423,7 +409,6 @@ class code_searcher_class():
             bool_is_to_search_case_sensitive=True,
         )
 
-    @check_type_of_arguments
     def get_number_of_lines_in_the_library(self):
         """Getting number of not empty lines in whole library
 
@@ -444,7 +429,6 @@ class code_searcher_class():
                         get_number_of_lines_in_string(str_whole_file)
         return int_lines_of_code_already_found
 
-    @check_type_of_arguments
     def print_places_where_line_length_exceed_N(
             self,
             int_max_length=99,
@@ -524,7 +508,6 @@ class code_searcher_class():
                 print("=" * 79)
         return int_occurrences_found
 
-    @check_type_of_arguments
     def get_names_functions_defined_in_the_py_library(self):
         """Getting set names of all functions defined in the library
 
@@ -564,7 +547,6 @@ class code_searcher_class():
         )
         return set_str_functions_defined_in_the_library
 
-    @check_type_of_arguments
     def get_dict_times_py_functions_used(self):
         """Getting {function_name: times_function_used, ...}
 
@@ -601,7 +583,6 @@ class code_searcher_class():
             defdict_times_functions_used[str_func_name] -= 1
         return defdict_times_functions_used
 
-    @check_type_of_arguments
     def get_names_of_all_py_functions_defined_but_never_used(self):
         """Getting list of functions defined inside code but never used
 
@@ -624,7 +605,6 @@ class code_searcher_class():
         )
         return sorted(list_str_never_used_functions)
 
-    @check_type_of_arguments
     def get_set_str_names_of_all_py_files(self):
         """Getting set names of all .py files inside the library
 
@@ -645,7 +625,6 @@ class code_searcher_class():
                 )
         return set(list_names_of_all_py_files_in_library)
 
-    @check_type_of_arguments
     def get_list_all_imported_py_modules_in_the_library(self):
         """Getting list of all modules imported in the library
 
@@ -677,7 +656,6 @@ class code_searcher_class():
         list_imported_modules_found = list(set(list_imported_modules_found))
         return list_imported_modules_found
 
-    @check_type_of_arguments
     def get_names_of_outer_modules_used_in_the_library(
             self,
             bool_is_to_print_info=True

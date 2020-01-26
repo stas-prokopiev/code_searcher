@@ -2,7 +2,7 @@
 CODE_SEARCHER
 =============
 
-.. contents:: Table of Contents
+.. contents:: **Table of Contents**
 
 Short Overview.
 =========================

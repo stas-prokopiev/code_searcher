@@ -19,9 +19,9 @@ formats: all
 # Optionally set the version of Python and requirements required to build your docs
 python:
   setup_py_install: true
-  version: 3.7
-  install:
-    - requirements: requirements.txt
+  # version: 3.7
+  # install:
+  #   - requirements: requirements.txt
 
 
 sphinx:

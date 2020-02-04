@@ -2,6 +2,8 @@
 CODE_SEARCHER
 =============
 
+.. contents:: **Table of Contents**
+
 Short Overview.
 =========================
 
@@ -234,7 +236,7 @@ But after finding all files they won't be redownloaded again unless they were ch
 *If you want to search only through .py files but code_searcher_obj was initialized for [".py", "ipynb"]*
 
 *you can give to argument list_str_file_extensions=[".py"]*
-        
+
 
 .. code-block:: python
 

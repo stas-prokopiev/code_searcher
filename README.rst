@@ -187,36 +187,38 @@ But after finding all files they won't be redownloaded again unless they were ch
 
 .. code-block:: console
 
-    Found functions defined:  30
-    Found never used functions:  2
-    ['bool_search_of_code_with_re', 'bool_simple_search_of_code']
+    Found functions defined:  31
+    --> Printing all never used functions:
+    -->  0 )
+    ----> Function: check_type_of_arguments(...)
+    ----> From file:  c:\users\stanislav\desktop\my_python_projects\code_searcher\src\code_searcher\decorators.py
+    Found never used functions:  1
 
-6) To check which OUTER modules were imported in the library.
+6) To check which modules were imported in the library.
 --------------------------------------------------------------------------------------------------
 
 *It can be used in order to have only used packages in the virtual environment*
 
 .. code-block:: python
 
-    code_searcher_obj.get_names_of_outer_modules_used_in_the_library()
+    code_searcher_obj.get_list_imported_modules_in_the_py_library()
 
 *Output:*
 
 .. code-block:: console
 
-    Overall unique modules imported:  10
-    --> STANDARD library packages used:  8
-    ---->  0 ) os
-    ---->  1 ) json
-    ---->  2 ) re
-    ---->  3 ) __future__
-    ---->  4 ) codecs
-    ---->  5 ) collections
-    ---->  6 ) sys
-    ---->  7 ) time
-    --> OUTER packages imported:  2
-    ---->  0 ) code_searcher :  0.0.0
-    ---->  1 ) stdlib_list :  0.6.0
+    Imported packages found:
+    -->  0 ) __future__
+    -->  1 ) code_searcher
+    -->  2 ) codecs
+    -->  3 ) collections
+    -->  4 ) json
+    -->  5 ) os
+    -->  6 ) pkg_resources
+    -->  7 ) re
+    -->  8 ) stdlib_list
+    -->  9 ) sys
+    -->  10 ) time
 
 7) To get dictionary with content of all satisfy files.
 --------------------------------------------------------------------------------------------------

@@ -76,8 +76,11 @@ needs_sphinx = '1.3'
 extensions = [
     'sphinx.ext.autodoc', 'sphinx.ext.napoleon',
     'sphinx.ext.autosummary', 'sphinx.ext.viewcode',
+    "sphinxcontrib.confluencebuilder",
 ]
 
+
+confluence_publish = False
 
 #####
 # Napoleon settings

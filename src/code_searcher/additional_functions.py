@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+ # -*- coding: utf-8 -*-
 """
 
 This module is consists of additional functions for code searching
@@ -10,7 +10,6 @@ from __future__ import print_function
 from code_searcher.decorators import check_type_of_arguments
 import re
 import os
-from stdlib_list import stdlib_list
 
 
 def get_names_of_all_functions_defined_in_py_code(str_py_code):
@@ -30,7 +29,9 @@ def get_names_of_all_functions_defined_in_py_code(str_py_code):
     str_re_pattern = r"^[\s]*def[\s]*([\w]*)[\s]*[(]"
     for str_one_line in str_py_code.splitlines():
         for match_obj in re.finditer(str_re_pattern, str_one_line):
-            list_names_of_all_functions_defined.append(match_obj.group(1))
+            list_names_of_all_functions_defined.append(
+                match_obj.group(1)
+            )
     return list_names_of_all_functions_defined
 
 
@@ -49,19 +50,19 @@ def get_list_modules_imported_in_py_code(str_py_code):
     """
     list_imported_modules_found = []
     #####
-    str_re_pattern_1 = r"^[\s]*from[\s]+([\.\w]*)[\s]+import[\s]+"
-    str_re_pattern_2 = r"^[\s]*import[\s]+([\.\w]*)\b"
+    str_pattern_1 = r"^[\s]*from[\s]+([\.\w]*)[\s]+import[\s]+"
+    str_pattern_2 = r"^[\s]*import[\s]+([\.\w]*)\b"
     # One by one dealing with every code line
     for str_one_code_line in str_py_code.splitlines():
         # Searching for line like " from something import something(*)"
-        for match_obj in re.finditer(str_re_pattern_1, str_one_code_line):
+        for match_obj in re.finditer(str_pattern_1, str_one_code_line):
             str_module_name = match_obj.group(1)
             str_module_name = str_module_name.split(".")[0]
             list_imported_modules_found.append(str_module_name)
             # print(match_obj.group(1))
         #####
         # Searching for line like "import something"
-        for match_obj in re.finditer(str_re_pattern_2, str_one_code_line):
+        for match_obj in re.finditer(str_pattern_2, str_one_code_line):
             str_module_name = match_obj.group(1)
             str_module_name = str_module_name.split(".")[0]
             list_imported_modules_found.append(str_module_name)
@@ -162,7 +163,19 @@ def bool_simple_search_of_code(str_code_to_search, str_where_to_search):
     bool
         If string is inside another string
     """
-    return str_code_to_search in str_where_to_search
+    bool_is_code_found = str_code_to_search in str_where_to_search
+    if not bool_is_code_found:
+        return False
+    #####
+    str_in_quotes_1 = "'{}'".format(str_code_to_search)
+    str_in_quotes_2 = '"{}"'.format(str_code_to_search)
+    bool_is_code_in_quotes = (
+        (str_in_quotes_1 in str_where_to_search) or
+        (str_in_quotes_2 in str_where_to_search)
+    )
+    if bool_is_code_in_quotes:
+        return False
+    return True
 
 
 def bool_search_of_code_with_re(str_re_pattern, str_where_to_search):
@@ -199,35 +212,35 @@ def get_number_of_lines_in_string(str_string):
     return int_lines
 
 
-def get_set_names_of_all_standard_library_packages():
-    """Get names of all common standard packages in all py versions
+def get_times_function_used(
+        str_file_where_to_search,
+        str_function_name
+):
+    """Get number of not empty code lines in the string
 
     Parameters
     ----------
+    str_file_where_to_search : str
+        str code of file where to search to func usage
+    str_function_name : str
+        function name to search for
 
     Returns
     -------
-    set
-        names of all common standard packages in all py versions
+    int
+        times function used
     """
-    list_all_py_versions = (
-        ["2.6", "2.7"] +
-        ["3." + str(int_version_num) for int_version_num in range(2, 9)]
-    )
-    set_all_common_packeges_in_std = set()
-    for str_python_version in list_all_py_versions:
-        list_std_packages_tmp = stdlib_list(str_python_version)
-        list_std_packages = [
-            str_full_pkg_name.split(".")[0]
-            for str_full_pkg_name in list_std_packages_tmp
-        ]
-        if not set_all_common_packeges_in_std:
-            set_all_common_packeges_in_std = set(list_std_packages)
-        else:
-            set_all_common_packeges_in_std = (
-                set_all_common_packeges_in_std & set(list_std_packages)
-            )
-    return set_all_common_packeges_in_std
+    int_times_function_used = 0
+    int_times_function_used += \
+        str_file_where_to_search.count(str_function_name)
 
 
+    int_times_function_used -= \
+        str_file_where_to_search.count("import " + str_function_name)
 
+
+    int_times_function_used += \
+        str_file_where_to_search.count("@" + str_function_name)
+    int_times_function_used += \
+        str_file_where_to_search.count("return " + str_function_name)
+    return int_times_function_used

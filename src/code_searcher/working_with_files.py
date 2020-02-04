@@ -9,11 +9,11 @@ from __future__ import division
 from __future__ import print_function
 import os
 import codecs
-import json    # or `import simplejson as json` if on Python < 2.6
+import json  # or `import simplejson as json` if on Python < 2.6
 from code_searcher.decorators import check_type_of_arguments
 
 
-def read_whole_file(str_path_to_file, str_encoding="utf-8"):
+def read_whole_file(str_path_to_file):
     """read the whole file with encoding
 
     Parameters
@@ -28,12 +28,7 @@ def read_whole_file(str_path_to_file, str_encoding="utf-8"):
     str
         whole file as one string
     """
-    with codecs.open(
-        str_path_to_file,
-        "r",
-        str_encoding,
-        errors="ignore"
-    ) as file:
+    with codecs.open(str_path_to_file, "r", "utf-8", errors="ignore") as file:
         str_whole_file = file.read()
     return str_whole_file  # .encode("utf-8")
 
@@ -45,19 +40,18 @@ def read_ipynb_file(str_path_to_file):
     ----------
     str_path_to_file : str
         path to file which to read
-
     Returns
     -------
     str
         whole ipynb file as one string
     """
-    str_whole_file = read_whole_file(str_path_to_file, str_encoding="utf-8")
+    str_whole_file = read_whole_file(str_path_to_file)
     dict_ipynb_file = json.loads(str_whole_file)
     if "cells" not in dict_ipynb_file:
         return ""
     str_full_ipynb_file = ""
     for int_cell_num, dict_cell in enumerate(dict_ipynb_file["cells"]):
-        str_cell_num = "[In {}] ".format(int_cell_num)
+        str_cell_num = "In [{}] ".format(int_cell_num)
         str_cell_full_code = ""
         for str_one_line_of_code in dict_cell["source"]:
             if not str_one_line_of_code.strip():
@@ -69,8 +63,7 @@ def read_ipynb_file(str_path_to_file):
 
 
 def get_list_str_path_all_files_with_given_extension(
-        str_folder_where_to_look,
-        str_extension_to_look_for=".py",
+    str_folder_where_to_look, str_extension_to_look_for=".py",
 ):
     """Getting pathes to all files with asked extension in the folder
 
@@ -110,8 +103,7 @@ def get_list_str_path_all_files_with_given_extension(
 
 
 def get_list_str_filenames_of_all_files_with_given_extension(
-        str_folder_where_to_look,
-        str_extension_to_look_for=".py",
+    str_folder_where_to_look, str_extension_to_look_for=".py",
 ):
     """Getting names of all files with asked extension in the folder
 
@@ -132,8 +124,8 @@ def get_list_str_filenames_of_all_files_with_given_extension(
         str_extension_to_look_for = "." + str_extension_to_look_for
     # Getting all filenames via os.walk
     list_str_filenames = []
-    for _, _, list_str_child_filenames in os.walk(str_folder_where_to_look):
-        for str_filename in list_str_child_filenames:
+    for _, _, list_str_ch_filenames in os.walk(str_folder_where_to_look):
+        for str_filename in list_str_ch_filenames:
             if str_filename.endswith(str_extension_to_look_for):
                 list_str_filenames.append(str_filename)
     # Clear filenames from extension .py

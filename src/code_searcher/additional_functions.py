@@ -162,7 +162,9 @@ def bool_simple_search_of_code(str_code_to_search, str_where_to_search):
     bool
         If string is inside another string
     """
-    return str_code_to_search in str_where_to_search
+    if str_code_to_search not in str_where_to_search:
+        return False
+    return True
 
 
 def bool_search_of_code_with_re(str_re_pattern, str_where_to_search):

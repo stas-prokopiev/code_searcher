@@ -71,6 +71,9 @@ class code_searcher_class:
     get_dict_list_file_paths_by_ext_by_dir(...)
         Getting dict with pathes to asked files by ext by dir
 
+    get_dict_list_file_paths_by_ext(...)
+        Getting dict with pathes to asked files by extension
+
     download_files(...)
         For all files defined in self.dict_list_file_paths_by_ext_by_dir
         download up to date versions of files (Efficient realization)
@@ -114,7 +117,9 @@ class code_searcher_class:
     """
 
     def __init__(
-        self, list_str_dirs_where_to_look, list_str_file_extensions=[".py", "ipynb"],
+        self,
+        list_str_dirs_where_to_look,
+        list_str_file_extensions=[".py", "ipynb"],
     ):
         """Init object
 
@@ -135,7 +140,8 @@ class code_searcher_class:
         # 1) Initialize class variables
         # list most parent folders where to look for code files
         self.list_str_dirs_where_to_look = [
-            os.path.abspath(str_dir).lower() for str_dir in list_str_dirs_where_to_look
+            os.path.abspath(str_dir).lower()
+            for str_dir in list_str_dirs_where_to_look
         ]
         # list strings file extensions which files to explore
         self.list_str_file_extensions = list_str_file_extensions
@@ -216,16 +222,16 @@ class code_searcher_class:
             int_lines_in_folder = 0
             str_stats_dir += "--> Files_found = {int_files_in_dir}  "
             str_stats_dir += "Code_lines = {int_lines_in_dir}\n"
-            dict_str_file_by_path_by_ext = self.dict_str_file_by_path_by_ext_by_dir[
-                str_dir
-            ]
+            dict_str_file_by_path_by_ext = \
+                self.dict_str_file_by_path_by_ext_by_dir[str_dir]
             # Count number of files with every extension
             for str_ext in dict_str_file_by_path_by_ext:
                 dict_str_file_by_path = dict_str_file_by_path_by_ext[str_ext]
                 int_code_lines = 0
                 for str_file_path in dict_str_file_by_path:
                     str_full_file = dict_str_file_by_path[str_file_path]
-                    int_code_lines += get_number_of_lines_in_string(str_full_file)
+                    int_code_lines += \
+                        get_number_of_lines_in_string(str_full_file)
 
                 int_files = len(dict_str_file_by_path)
                 #####
@@ -239,7 +245,9 @@ class code_searcher_class:
                     "Code_lines = {int_lines};  "
                     "\n"
                 ).format(
-                    extension=str_ext, int_files=int_files, int_lines=int_code_lines,
+                    extension=str_ext,
+                    int_files=int_files,
+                    int_lines=int_code_lines,
                 )
             str_stats += str_stats_dir.format(
                 int_files_in_dir=int_files_in_folder,
@@ -273,6 +281,25 @@ class code_searcher_class:
             ] = dict_list_file_paths_by_ext
         return dict_list_file_paths_by_ext_by_dir
 
+    def get_dict_list_file_paths_by_ext(self):
+        """Getting dict with pathes to asked files by extension
+
+        Returns
+        -------
+        dict
+            {"file_extension_1": [file_path_1, ..], ..}
+        """
+        dict_list_file_paths_by_ext_by_dir = \
+            self.get_dict_list_file_paths_by_ext_by_dir()
+        dict_list_file_paths_by_ext = defaultdict(list)
+        for str_dir in dict_list_file_paths_by_ext_by_dir:
+            dict_list_file_paths_by_ext_tmp = \
+                dict_list_file_paths_by_ext_by_dir[str_dir]
+            for str_ext in dict_list_file_paths_by_ext_tmp:
+                dict_list_file_paths_by_ext[str_ext] = \
+                    dict_list_file_paths_by_ext_tmp[str_ext]
+        return dict_list_file_paths_by_ext
+
     def download_files(self):
         """
         For all files defined in self.dict_list_file_paths_by_ext_by_dir
@@ -292,15 +319,13 @@ class code_searcher_class:
         # For every folder where to look download code files
         # Only if they were updated
         for str_dir_path in self.dict_list_file_paths_by_ext_by_dir:
-            dict_list_file_paths_by_ext = self.dict_list_file_paths_by_ext_by_dir[
-                str_dir_path
-            ]
+            dict_list_file_paths_by_ext = \
+                self.dict_list_file_paths_by_ext_by_dir[str_dir_path]
             #####
             # Necessary for correct redownloading of library
             if str_dir_path in self.dict_str_file_by_path_by_ext_by_dir:
-                dict_str_file_by_path_by_ext = self.dict_str_file_by_path_by_ext_by_dir[
-                    str_dir_path
-                ]
+                dict_str_file_by_path_by_ext = \
+                    self.dict_str_file_by_path_by_ext_by_dir[str_dir_path]
             else:
                 dict_str_file_by_path_by_ext = OrderedDict()
             #####
@@ -309,7 +334,8 @@ class code_searcher_class:
                 #####
                 # Necessary for correct redownloading of library
                 if str_ext in dict_str_file_by_path_by_ext:
-                    dict_str_file_by_path = dict_str_file_by_path_by_ext[str_ext]
+                    dict_str_file_by_path = \
+                        dict_str_file_by_path_by_ext[str_ext]
                 else:
                     dict_str_file_by_path = OrderedDict()
                 #####
@@ -326,15 +352,15 @@ class code_searcher_class:
                         str_f_path
                     ) + os.path.getsize(str_f_path)
 
-                    float_time_file_mod_before = self.dict_time_file_changed_by_path[
-                        str_f_path
-                    ]
+                    float_time_file_mod_before = \
+                        self.dict_time_file_changed_by_path[str_f_path]
 
                     if float_time_file_mod_before != float_time_file_changed:
 
                         str_file_content = get_file_as_string(str_f_path)
                         dict_str_file_by_path[str_f_path] = str_file_content
-                        self.dict_str_file_by_full_path[str_f_path] = str_file_content
+                        self.dict_str_file_by_full_path[str_f_path] = \
+                            str_file_content
                         self.dict_time_file_changed_by_path[
                             str_f_path
                         ] = float_time_file_changed
@@ -378,7 +404,8 @@ class code_searcher_class:
         int
             times occurrences of code found in whole library
         """
-        from code_searcher.additional_functions import bool_simple_search_of_code
+        from code_searcher.additional_functions import \
+            bool_simple_search_of_code
 
         self.download_files()
         return search_code_in_the_library_common_processes(
@@ -405,7 +432,8 @@ class code_searcher_class:
         int
             times occurrences of code found in whole library
         """
-        from code_searcher.additional_functions import bool_search_of_code_with_re
+        from code_searcher.additional_functions import \
+            bool_search_of_code_with_re
 
         self.download_files()
         return search_code_in_the_library_common_processes(
@@ -426,16 +454,14 @@ class code_searcher_class:
         self.download_files()
         int_lines_of_code_already_found = 0
         for str_dir in self.dict_str_file_by_path_by_ext_by_dir:
-            dict_str_file_by_path_by_ext = self.dict_str_file_by_path_by_ext_by_dir[
-                str_dir
-            ]
+            dict_str_file_by_path_by_ext = \
+                self.dict_str_file_by_path_by_ext_by_dir[str_dir]
             for str_ext in dict_str_file_by_path_by_ext:
                 dict_str_file_by_path = dict_str_file_by_path_by_ext[str_ext]
                 for str_file_path in dict_str_file_by_path:
                     str_whole_file = dict_str_file_by_path[str_file_path]
-                    int_lines_of_code_already_found += get_number_of_lines_in_string(
-                        str_whole_file
-                    )
+                    int_lines_of_code_already_found += \
+                        get_number_of_lines_in_string(str_whole_file)
         return int_lines_of_code_already_found
 
     def print_places_where_line_length_exceed_N(
@@ -455,7 +481,10 @@ class code_searcher_class:
         None
         """
         self.download_files()
-        print("Searching all places where one line length exceeds: ", int_max_length)
+        print(
+            "Searching all places where one line length exceeds: ", 
+            int_max_length
+        )
         if not list_str_file_extensions:
             list_str_file_extensions = self.list_str_file_extensions
         # 1) If not necessary to search case sensitive, then lower everything
@@ -463,24 +492,29 @@ class code_searcher_class:
         print("=" * 79)
         # For every folder searching through all files inside folder
         for str_dir in self.dict_str_file_by_path_by_ext_by_dir:
-            dict_str_file_by_path_by_ext = self.dict_str_file_by_path_by_ext_by_dir[
-                str_dir
-            ]
+            dict_str_file_by_path_by_ext = \
+                self.dict_str_file_by_path_by_ext_by_dir[str_dir]
             print("For folder: {folder}".format(folder=str_dir))
             for str_ext in list_str_file_extensions:
                 if str_ext not in dict_str_file_by_path_by_ext:
-                    print("WARNING: NO files were downloaded for extension: " + str_ext)
+                    print(
+                        "WARNING: NO files were downloaded for extension: " +
+                        str_ext
+                    )
                     continue
                 if len(list_str_file_extensions) > 1:
                     print("")
-                print("--> For extension: {extension}".format(extension=str_ext))
+                print(
+                    "--> For extension: {extension}".format(extension=str_ext)
+                )
                 bool_is_entry_found_for_cur_ext = False
                 dict_str_file_by_path = dict_str_file_by_path_by_ext[str_ext]
                 # For every file search occurrences of asked code
                 for str_file_path in dict_str_file_by_path:
                     str_rel_path = os.path.relpath(str_file_path, str_dir)
                     str_full_file = dict_str_file_by_path[str_file_path]
-                    list_str_file_splitted = enumerate(str_full_file.splitlines())
+                    list_str_file_splitted = \
+                        enumerate(str_full_file.splitlines())
                     #####
                     # Line by line searching for asked code
                     bool_is_entry_found_for_cur_file = False
@@ -552,9 +586,8 @@ class code_searcher_class:
         )
         list_names_functions_defined = []
         for str_file_path in dict_list_funcs_defined_by_file_path:
-            list_names_functions_defined += dict_list_funcs_defined_by_file_path[
-                str_file_path
-            ]
+            list_names_functions_defined += \
+                dict_list_funcs_defined_by_file_path[str_file_path]
         return set(list_names_functions_defined)
 
     def get_dict_list_places_where_function_used(self):
@@ -567,7 +600,8 @@ class code_searcher_class:
         """
         self.download_files()
         dict_list_places_where_function_used = defaultdict(list)
-        set_all_funcs_defined = self.get_names_functions_defined_in_the_py_library()
+        set_all_funcs_defined = \
+            self.get_names_functions_defined_in_the_py_library()
         #####
         for str_file_path in self.dict_str_file_by_full_path:
             str_file_content = self.dict_str_file_by_full_path[str_file_path]
@@ -618,13 +652,17 @@ class code_searcher_class:
         print("--> Printing all never used functions: ")
         list_str_never_used_functions = []
         for str_func_name in sorted(dict_list_places_where_function_used):
-            list_places_where_used = dict_list_places_where_function_used[str_func_name]
+            list_places_where_used = \
+                dict_list_places_where_function_used[str_func_name]
             if len(list_places_where_used) == 1:
                 print("--> ", len(list_str_never_used_functions), ")")
                 print("----> Function: {}(...)".format(str_func_name))
                 print("----> From file: ", list_places_where_used[0])
                 list_str_never_used_functions.append(str_func_name)
-        print("Found never used functions: ", len(list_str_never_used_functions))
+        print(
+            "Found never used functions: ",
+            len(list_str_never_used_functions)
+        )
         return sorted(list_str_never_used_functions)
 
     def get_set_str_names_of_all_py_files(self):
@@ -640,9 +678,10 @@ class code_searcher_class:
         """
         list_names_of_all_py_files_in_library = []
         for str_dir_where_to_look in self.list_str_dirs_where_to_look:
-            list_names_of_all_py_files_in_library += get_list_str_filenames_of_all_files_with_given_extension(
-                str_dir_where_to_look, str_extension_to_look_for=".py"
-            )
+            list_names_of_all_py_files_in_library += \
+                get_list_str_filenames_of_all_files_with_given_extension(
+                    str_dir_where_to_look, str_extension_to_look_for=".py"
+                )
         return set(list_names_of_all_py_files_in_library)
 
     def get_list_imported_modules_in_the_py_library(self):
@@ -660,18 +699,19 @@ class code_searcher_class:
         self.download_files()
         list_imported_modules_found = []
         for str_dir in self.dict_str_file_by_path_by_ext_by_dir:
-            dict_str_file_by_path_by_ext = self.dict_str_file_by_path_by_ext_by_dir[
-                str_dir
-            ]
+            dict_str_file_by_path_by_ext = \
+                self.dict_str_file_by_path_by_ext_by_dir[str_dir]
             for str_ext in dict_str_file_by_path_by_ext:
                 dict_str_file_by_path = dict_str_file_by_path_by_ext[str_ext]
                 #####
                 # One by one dealing with every file
                 for str_filename in dict_str_file_by_path:
-                    str_full_code_of_one_py_file = dict_str_file_by_path[str_filename]
-                    list_imported_modules_found += get_list_modules_imported_in_py_code(
-                        str_full_code_of_one_py_file
-                    )
+                    str_full_code_of_one_py_file = \
+                        dict_str_file_by_path[str_filename]
+                    list_imported_modules_found += \
+                        get_list_modules_imported_in_py_code(
+                            str_full_code_of_one_py_file
+                        )
         #####
         list_imported_modules = sorted(list(set(list_imported_modules_found)))
         print("Imported packages found: ")

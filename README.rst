@@ -2,6 +2,9 @@
 CODE_SEARCHER
 =============
 
+.. image:: https://travis-ci.org/stas-prokopiev/code_searcher.svg?branch=master
+    :target: https://travis-ci.org/stas-prokopiev/code_searcher
+
 .. contents:: **Table of Contents**
 
 Short Overview.

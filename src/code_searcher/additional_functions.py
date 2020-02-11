@@ -162,16 +162,7 @@ def bool_simple_search_of_code(str_code_to_search, str_where_to_search):
     bool
         If string is inside another string
     """
-    bool_is_code_found = str_code_to_search in str_where_to_search
-    if not bool_is_code_found:
-        return False
-    #####
-    str_in_quotes_1 = "'{}'".format(str_code_to_search)
-    str_in_quotes_2 = '"{}"'.format(str_code_to_search)
-    int_times_code_found = str_where_to_search.count(str_code_to_search)
-    int_times_code_found -= str_where_to_search.count(str_in_quotes_1)
-    int_times_code_found -= str_where_to_search.count(str_in_quotes_2)
-    return bool(int_times_code_found)
+    return str_code_to_search in str_where_to_search
 
 
 def bool_search_of_code_with_re(str_re_pattern, str_where_to_search):

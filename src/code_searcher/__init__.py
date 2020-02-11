@@ -7,19 +7,16 @@ help support changes in any function signature inside any project or
 library.
 """
 
-
 from code_searcher.code_searcher_class import code_searcher_class
 
 __all__ = [
     # Core classes
     "code_searcher_class",
-    # 'addtional_functions',
+    # 'additional_functions',
     # 'decorators',
     # 'working_with_files',
 ]
 
-
-print("hihi")
 
 # from pkg_resources import get_distribution, DistributionNotFound
 

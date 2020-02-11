@@ -79,7 +79,7 @@ there is the main folder for all .ipynb files then use them.
 
 Please note that first initialization can be a long process if the folders where you search for files are deep and wide.
 
-But after finding all files they won't be redownloaded again unless they were changed. So excellent performance is expected.
+But after finding all files they won't be downloaded again unless they were changed. So excellent performance is expected.
 
 1) To find all occurrences of some code.
 --------------------------------------------------------------------------------------------------
@@ -151,7 +151,7 @@ But after finding all files they won't be redownloaded again unless they were ch
 
     Folders to search in:
     --> c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
-    --> c:\users\stanislav\desktop\websim\all_websim_scripts\working_with_expression_alphas\dashboard
+    --> c:\users\stanislav\desktop\dashboard
     Extensions to check:
     --> .py
     --> ipynb
@@ -162,7 +162,7 @@ But after finding all files they won't be redownloaded again unless they were ch
     ----> .py:  Files_found = 5;  Code_lines = 1203;
     ----> ipynb:  Files_found = 0;  Code_lines = 0;
     ===============================================================================
-    --> For folder: c:\users\stanislav\desktop\websim\all_websim_scripts\working_with_expression_alphas\dashboard
+    --> For folder: c:\users\stanislav\desktop\dashboard
     --> Files_found = 4  Code_lines = 175
     ----> .py:  Files_found = 0;  Code_lines = 0;
     ----> ipynb:  Files_found = 4;  Code_lines = 175;
@@ -228,7 +228,7 @@ But after finding all files they won't be redownloaded again unless they were ch
 
 *For now on this dictionary structure is*
 
-*{"dir_path_1": {"file_extension_1": {"absosut_file_path_1": str_file_content, ..}, ..}, ..}*
+*{"dir_path_1": {"file_extension_1": {"absolute_file_path_1": str_file_content, ..}, ..}, ..}*
 
 .. code-block:: python
 

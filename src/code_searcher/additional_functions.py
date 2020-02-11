@@ -79,7 +79,7 @@ def search_code_in_the_library_common_processes(
     """Searching some code inside whole library
 
     Searching some code inside whole library and
-    print all occurences in nice formatted way
+    print all occurrences in nice formatted way
 
     Parameters
     ----------
@@ -93,9 +93,9 @@ def search_code_in_the_library_common_processes(
     Returns
     -------
     int
-        times occurences of code found in whole library
+        times occurrences of code found in whole library
     """
-    # 1) If not neccesary to search case sensitive, then lower everything
+    # 1) If not necessary to search case sensitive, then lower everything
     if not bool_is_to_search_case_sensitive:
         str_code_to_search = str_code_to_search.lower()
     int_occurrences_found = 0
@@ -113,7 +113,7 @@ def search_code_in_the_library_common_processes(
             ))
             bool_is_entry_found_for_cur_ext = False
             dict_str_file_by_path = dict_str_file_by_path_by_ext[str_ext]
-            # For every file search occurences of asked code
+            # For every file search occurrences of asked code
             for str_file_path in dict_str_file_by_path:
                 str_rel_path = os.path.relpath(str_file_path, str_dir)
                 str_full_file = dict_str_file_by_path[str_file_path]

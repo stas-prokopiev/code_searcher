@@ -17,29 +17,24 @@ from collections import OrderedDict
 #####
 # .decorators
 from code_searcher.decorators import check_type_of_arguments
-
 #####
 # .additional_functions
-from code_searcher.additional_functions import (
-    get_names_of_all_functions_defined_in_py_code,
-)
-from code_searcher.additional_functions import get_number_of_lines_in_string
-from code_searcher.additional_functions import get_list_modules_imported_in_py_code
-from code_searcher.additional_functions import (
-    search_code_in_the_library_common_processes,
-)
+from code_searcher.additional_functions import \
+    get_names_of_all_functions_defined_in_py_code
+from code_searcher.additional_functions import \
+    get_number_of_lines_in_string
+from code_searcher.additional_functions import \
+    get_list_modules_imported_in_py_code
+from code_searcher.additional_functions import \
+    search_code_in_the_library_common_processes
 from code_searcher.additional_functions import get_times_function_used
-
 #####
 # .working_with_files
-from code_searcher.working_with_files import (
-    get_list_str_filenames_of_all_files_with_given_extension,
-)
-from code_searcher.working_with_files import (
-    get_list_str_path_all_files_with_given_extension,
-)
+from code_searcher.working_with_files import \
+    get_list_str_filenames_of_all_files_with_given_extension
+from code_searcher.working_with_files import \
+    get_list_str_path_all_files_with_given_extension
 from code_searcher.working_with_files import get_file_as_string
-
 #####
 
 
@@ -85,7 +80,7 @@ class code_searcher_class:
 
     search_code_in_the_library(...)
         Searching some code inside whole library and
-        print all occurences in nice formatted way
+        print all occurrences in nice formatted way
 
     search_code_in_the_library_with_re(...)
         Searching some code inside library using regular expressions
@@ -94,7 +89,7 @@ class code_searcher_class:
         Getting number of not empty lines in whole library
 
     print_places_where_line_length_exceed_N(...)
-        Function print all places where line length exceen N symbols
+        Function print all places where line length exceed N symbols
 
     get_dict_list_funcs_defined_by_file_path(...)
         Getting dict with names of functions defined by filepath
@@ -114,7 +109,7 @@ class code_searcher_class:
     get_list_imported_modules_in_the_py_library(...)
         Getting list of all modules imported in the library
 
-    get_names_of_outer_modules_used_in_the_library(...)
+    get_list_imported_modules_in_the_py_library(...)
         Getting list of all OUTER modules imported in the library
     """
 
@@ -369,7 +364,7 @@ class code_searcher_class:
         self, str_code_to_search, bool_is_to_search_case_sensitive=True,
     ):
         """Searching some code inside whole library and
-        print all occurences in nice formatted way
+        print all occurrences in nice formatted way
 
         Parameters
         ----------
@@ -381,7 +376,7 @@ class code_searcher_class:
         Returns
         -------
         int
-            times occurences of code found in whole library
+            times occurrences of code found in whole library
         """
         from code_searcher.additional_functions import bool_simple_search_of_code
 
@@ -408,7 +403,7 @@ class code_searcher_class:
         Returns
         -------
         int
-            times occurences of code found in whole library
+            times occurrences of code found in whole library
         """
         from code_searcher.additional_functions import bool_search_of_code_with_re
 
@@ -446,7 +441,7 @@ class code_searcher_class:
     def print_places_where_line_length_exceed_N(
         self, int_max_length=99, list_str_file_extensions=None,
     ):
-        """Function print all places where line length exceen N symbols
+        """Function print all places where line length exceed N symbols
 
         Parameters
         ----------
@@ -463,7 +458,7 @@ class code_searcher_class:
         print("Searching all places where one line length exceeds: ", int_max_length)
         if not list_str_file_extensions:
             list_str_file_extensions = self.list_str_file_extensions
-        # 1) If not neccesary to search case sensitive, then lower everything
+        # 1) If not necessary to search case sensitive, then lower everything
         int_occurrences_found = 0
         print("=" * 79)
         # For every folder searching through all files inside folder
@@ -481,7 +476,7 @@ class code_searcher_class:
                 print("--> For extension: {extension}".format(extension=str_ext))
                 bool_is_entry_found_for_cur_ext = False
                 dict_str_file_by_path = dict_str_file_by_path_by_ext[str_ext]
-                # For every file search occurences of asked code
+                # For every file search occurrences of asked code
                 for str_file_path in dict_str_file_by_path:
                     str_rel_path = os.path.relpath(str_file_path, str_dir)
                     str_full_file = dict_str_file_by_path[str_file_path]

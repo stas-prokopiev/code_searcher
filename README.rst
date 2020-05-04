@@ -177,53 +177,7 @@ But after finding all files they won't be downloaded again unless they were chan
 
     code_searcher_obj.update_files()
 
-5) To check which functions were defined but never used.
---------------------------------------------------------------------------------------------------
-
-*It can be used in order to have your library as short as possible.*
-
-.. code-block:: python
-
-    code_searcher_obj.get_names_of_all_py_functions_defined_but_never_used()
-
-*Output:*
-
-.. code-block:: console
-
-    Found functions defined:  31
-    --> Printing all never used functions:
-    -->  0 )
-    ----> Function: check_type_of_arguments(...)
-    ----> From file:  c:\users\stanislav\desktop\my_python_projects\code_searcher\src\code_searcher\decorators.py
-    Found never used functions:  1
-
-6) To check which modules were imported in the library.
---------------------------------------------------------------------------------------------------
-
-*It can be used in order to have only used packages in the virtual environment*
-
-.. code-block:: python
-
-    code_searcher_obj.get_list_imported_modules_in_the_py_library()
-
-*Output:*
-
-.. code-block:: console
-
-    Imported packages found:
-    -->  0 ) __future__
-    -->  1 ) code_searcher
-    -->  2 ) codecs
-    -->  3 ) collections
-    -->  4 ) json
-    -->  5 ) os
-    -->  6 ) pkg_resources
-    -->  7 ) re
-    -->  8 ) stdlib_list
-    -->  9 ) sys
-    -->  10 ) time
-
-7) To get dictionary with content of all satisfy files.
+5) To get dictionary with content of all satisfy files.
 --------------------------------------------------------------------------------------------------
 
 *For now on this dictionary structure is*
@@ -233,48 +187,6 @@ But after finding all files they won't be downloaded again unless they were chan
 .. code-block:: python
 
     code_searcher_obj.dict_str_file_by_path_by_ext_by_dir
-
-
-8) To print places where line length exceeds certain limit
---------------------------------------------------------------------------------------------------
-
-*If you want to search only through .py files but code_searcher_obj was initialized for [".py", "ipynb"]*
-
-*you can give to argument list_str_file_extensions=[".py"]*
-
-
-.. code-block:: python
-
-    code_searcher_obj.print_places_where_line_length_exceed_N(int_max_length=78, list_str_file_extensions=None,)
-
-*Output:*
-
-.. code-block:: console
-
-    For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
-
-    --> For extension: .py
-    ----> Found in:  code_searcher_class.py
-    ------> 0) line: 63  Length: 79
-    ------> 1) line: 151  Length: 79
-    ------> 2) line: 153  Length: 79
-    ------> 3) line: 156  Length: 79
-    ------> 4) line: 583  Length: 80
-    ------> 5) line: 594  Length: 79
-    ------> 6) line: 719  Length: 79
-    ----> Found in:  decorators.py
-    ------> 7) line: 50  Length: 79
-    ------> 8) line: 63  Length: 79
-
-    --> For extension: ipynb
-    ----> NOTHING FOUND.
-
-9) To get the number of not empty code lines in the library
---------------------------------------------------------------------------------------------------
-
-.. code-block:: python
-
-    code_searcher_obj.get_number_of_lines_in_the_library()
 
 Links
 =====

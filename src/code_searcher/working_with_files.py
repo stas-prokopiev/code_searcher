@@ -4,13 +4,17 @@
 This module is consists of additional functions for code searching
 through your library.
 """
+# Standard library imports
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 import os
 import codecs
-import json  # or `import simplejson as json` if on Python < 2.6
-from code_searcher.decorators import check_type_of_arguments
+import json
+
+# Third party imports
+
+# Local imports
 
 
 def read_whole_file(str_path_to_file):

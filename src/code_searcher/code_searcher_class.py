@@ -4,38 +4,31 @@
 This module is consists of main class for code searching through your
 code library.
 """
+# Standard library imports
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 import time
 import os
 import sys
-
 from collections import defaultdict
 from collections import OrderedDict
 
-#####
-# .decorators
-from code_searcher.decorators import check_type_of_arguments
-#####
+# Third party imports
+
+# Local imports
 # .additional_functions
 from code_searcher.additional_functions import \
-    get_names_of_all_functions_defined_in_py_code
-from code_searcher.additional_functions import \
     get_number_of_lines_in_string
-from code_searcher.additional_functions import \
-    get_list_modules_imported_in_py_code
+
 from code_searcher.additional_functions import \
     search_code_in_the_library_common_processes
-from code_searcher.additional_functions import get_times_function_used
-#####
 # .working_with_files
 from code_searcher.working_with_files import \
     get_list_str_filenames_of_all_files_with_given_extension
 from code_searcher.working_with_files import \
     get_list_str_path_all_files_with_given_extension
 from code_searcher.working_with_files import get_file_as_string
-#####
 
 
 class code_searcher_class:
@@ -88,32 +81,6 @@ class code_searcher_class:
     search_code_in_the_library_with_re(...)
         Searching some code inside library using regular expressions
 
-    get_number_of_lines_in_the_library(...)
-        Getting number of not empty lines in whole library
-
-    print_places_where_line_length_exceed_N(...)
-        Function print all places where line length exceed N symbols
-
-    get_dict_list_funcs_defined_by_file_path(...)
-        Getting dict with names of functions defined by filepath
-
-    get_names_functions_defined_in_the_py_library(...)
-        Getting set names of all functions defined in the library
-
-    get_dict_times_py_functions_used(...)
-        Getting {function_name: times_function_used, ...}
-
-    get_names_of_all_py_functions_defined_but_never_used(...)
-        Getting list of functions defined inside code but never used
-
-    get_set_str_names_of_all_py_files(...)
-        Getting set names of all .py files inside the library
-
-    get_list_imported_modules_in_the_py_library(...)
-        Getting list of all modules imported in the library
-
-    get_list_imported_modules_in_the_py_library(...)
-        Getting list of all OUTER modules imported in the library
     """
 
     def __init__(
@@ -442,280 +409,3 @@ class code_searcher_class:
             str_re_template,
             bool_is_to_search_case_sensitive=True,
         )
-
-    def get_number_of_lines_in_the_library(self):
-        """Getting number of not empty lines in whole library
-
-        Returns
-        -------
-        int
-            Number of Not empty code lines in the library
-        """
-        self.download_files()
-        int_lines_of_code_already_found = 0
-        for str_dir in self.dict_str_file_by_path_by_ext_by_dir:
-            dict_str_file_by_path_by_ext = \
-                self.dict_str_file_by_path_by_ext_by_dir[str_dir]
-            for str_ext in dict_str_file_by_path_by_ext:
-                dict_str_file_by_path = dict_str_file_by_path_by_ext[str_ext]
-                for str_file_path in dict_str_file_by_path:
-                    str_whole_file = dict_str_file_by_path[str_file_path]
-                    int_lines_of_code_already_found += \
-                        get_number_of_lines_in_string(str_whole_file)
-        return int_lines_of_code_already_found
-
-    def print_places_where_line_length_exceed_N(
-        self, int_max_length=99, list_str_file_extensions=None,
-    ):
-        """Function print all places where line length exceed N symbols
-
-        Parameters
-        ----------
-        int_max_length : int
-            Max length of one code line
-        list_str_file_extensions : list, optional
-            List of extensions to search through only (default is None)
-
-        Returns
-        -------
-        None
-        """
-        self.download_files()
-        print(
-            "Searching all places where one line length exceeds: ", 
-            int_max_length
-        )
-        if not list_str_file_extensions:
-            list_str_file_extensions = self.list_str_file_extensions
-        # 1) If not necessary to search case sensitive, then lower everything
-        int_occurrences_found = 0
-        print("=" * 79)
-        # For every folder searching through all files inside folder
-        for str_dir in self.dict_str_file_by_path_by_ext_by_dir:
-            dict_str_file_by_path_by_ext = \
-                self.dict_str_file_by_path_by_ext_by_dir[str_dir]
-            print("For folder: {folder}".format(folder=str_dir))
-            for str_ext in list_str_file_extensions:
-                if str_ext not in dict_str_file_by_path_by_ext:
-                    print(
-                        "WARNING: NO files were downloaded for extension: " +
-                        str_ext
-                    )
-                    continue
-                if len(list_str_file_extensions) > 1:
-                    print("")
-                print(
-                    "--> For extension: {extension}".format(extension=str_ext)
-                )
-                bool_is_entry_found_for_cur_ext = False
-                dict_str_file_by_path = dict_str_file_by_path_by_ext[str_ext]
-                # For every file search occurrences of asked code
-                for str_file_path in dict_str_file_by_path:
-                    str_rel_path = os.path.relpath(str_file_path, str_dir)
-                    str_full_file = dict_str_file_by_path[str_file_path]
-                    list_str_file_splitted = \
-                        enumerate(str_full_file.splitlines())
-                    #####
-                    # Line by line searching for asked code
-                    bool_is_entry_found_for_cur_file = False
-                    for int_line_num, str_line in list_str_file_splitted:
-                        if len(str_line) > int_max_length:
-
-                            if not bool_is_entry_found_for_cur_file:
-                                bool_is_entry_found_for_cur_file = True
-                                bool_is_entry_found_for_cur_ext = True
-                                print("----> Found in: ", str_rel_path)
-                            print(
-                                "------> {})".format(int_occurrences_found),
-                                "line:",
-                                int_line_num,
-                                " Length:",
-                                len(str_line),
-                            )
-                            int_occurrences_found += 1
-                #####
-                if not bool_is_entry_found_for_cur_ext:
-                    print("----> NOTHING FOUND.")
-            #####
-            if int_occurrences_found:
-                print("=" * 79)
-        return int_occurrences_found
-
-    def get_dict_list_funcs_defined_by_file_path(self):
-        """Getting dict with names of functions defined by filepath
-
-        Returns
-        -------
-        dict
-            {"file_path_1": ["func_name_1", "func_name_2",...], ...}
-        """
-
-        self.download_files()
-        int_functions_found = 0
-        dict_list_funcs_defined_by_file_path = defaultdict(list)
-        for str_file_path in self.dict_str_file_by_full_path:
-            str_full_file = self.dict_str_file_by_full_path[str_file_path]
-            list_funcs_tmp = get_names_of_all_functions_defined_in_py_code(
-                str_full_file
-            )
-            # Delete functions which starts with "__"
-            list_funcs_tmp_cleared = [
-                str_func_name
-                for str_func_name in list_funcs_tmp
-                if not str_func_name.startswith("__")
-            ]
-            dict_list_funcs_defined_by_file_path[
-                str_file_path
-            ] += list_funcs_tmp_cleared
-            int_functions_found += len(list_funcs_tmp_cleared)
-        print("Found functions defined: ", int_functions_found)
-        return dict_list_funcs_defined_by_file_path
-
-    def get_names_functions_defined_in_the_py_library(self):
-        """Getting set names of all functions defined in the library
-
-        Returns
-        -------
-        set
-            set names of all functions defined in the library
-
-        """
-        self.download_files()
-        dict_list_funcs_defined_by_file_path = (
-            self.get_dict_list_funcs_defined_by_file_path()
-        )
-        list_names_functions_defined = []
-        for str_file_path in dict_list_funcs_defined_by_file_path:
-            list_names_functions_defined += \
-                dict_list_funcs_defined_by_file_path[str_file_path]
-        return set(list_names_functions_defined)
-
-    def get_dict_list_places_where_function_used(self):
-        """Getting {func_name: list_pathes_to_files_where_function_used, ...}
-
-        Returns
-        -------
-        dict
-            {func_name: list_pathes_to_files_where_function_used, ...}
-        """
-        self.download_files()
-        dict_list_places_where_function_used = defaultdict(list)
-        set_all_funcs_defined = \
-            self.get_names_functions_defined_in_the_py_library()
-        #####
-        for str_file_path in self.dict_str_file_by_full_path:
-            str_file_content = self.dict_str_file_by_full_path[str_file_path]
-            for str_func_name in set_all_funcs_defined:
-                int_times_function_used = get_times_function_used(
-                    str_file_content, str_func_name
-                )
-                if int_times_function_used:
-                    dict_list_places_where_function_used[str_func_name] += [
-                        str_file_path
-                    ] * int_times_function_used
-        return dict_list_places_where_function_used
-
-    def get_dict_times_py_functions_used(self):
-        """Getting {function_name: times_function_used, ...}
-
-        Returns
-        -------
-        dict
-            {function_name: times_function_used, ...}
-        """
-        dict_list_places_where_function_used = (
-            self.get_dict_list_places_where_function_used()
-        )
-        defdict_times_functions_used = defaultdict(int)
-        for str_func_name in dict_list_places_where_function_used:
-            # Subtract 1 from times function used, as its function definition
-            defdict_times_functions_used[str_func_name] = (
-                len(dict_list_places_where_function_used[str_func_name]) - 1
-            )
-        return defdict_times_functions_used
-
-    def get_names_of_all_py_functions_defined_but_never_used(self):
-        """Getting list of functions defined inside code but never used
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-        list
-            list names of never used functions inside the code library
-        """
-        self.download_files()
-        dict_list_places_where_function_used = (
-            self.get_dict_list_places_where_function_used()
-        )
-        print("--> Printing all never used functions: ")
-        list_str_never_used_functions = []
-        for str_func_name in sorted(dict_list_places_where_function_used):
-            list_places_where_used = \
-                dict_list_places_where_function_used[str_func_name]
-            if len(list_places_where_used) == 1:
-                print("--> ", len(list_str_never_used_functions), ")")
-                print("----> Function: {}(...)".format(str_func_name))
-                print("----> From file: ", list_places_where_used[0])
-                list_str_never_used_functions.append(str_func_name)
-        print(
-            "Found never used functions: ",
-            len(list_str_never_used_functions)
-        )
-        return sorted(list_str_never_used_functions)
-
-    def get_set_str_names_of_all_py_files(self):
-        """Getting set names of all .py files inside the library
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-        set
-            set names of all .py files inside the library
-        """
-        list_names_of_all_py_files_in_library = []
-        for str_dir_where_to_look in self.list_str_dirs_where_to_look:
-            list_names_of_all_py_files_in_library += \
-                get_list_str_filenames_of_all_files_with_given_extension(
-                    str_dir_where_to_look, str_extension_to_look_for=".py"
-                )
-        return set(list_names_of_all_py_files_in_library)
-
-    def get_list_imported_modules_in_the_py_library(self):
-        """Getting list of all modules imported in the library
-
-        Parameters
-        ----------
-
-        Returns
-        -------
-        list
-            list names of all imported modules found
-        """
-
-        self.download_files()
-        list_imported_modules_found = []
-        for str_dir in self.dict_str_file_by_path_by_ext_by_dir:
-            dict_str_file_by_path_by_ext = \
-                self.dict_str_file_by_path_by_ext_by_dir[str_dir]
-            for str_ext in dict_str_file_by_path_by_ext:
-                dict_str_file_by_path = dict_str_file_by_path_by_ext[str_ext]
-                #####
-                # One by one dealing with every file
-                for str_filename in dict_str_file_by_path:
-                    str_full_code_of_one_py_file = \
-                        dict_str_file_by_path[str_filename]
-                    list_imported_modules_found += \
-                        get_list_modules_imported_in_py_code(
-                            str_full_code_of_one_py_file
-                        )
-        #####
-        list_imported_modules = sorted(list(set(list_imported_modules_found)))
-        print("Imported packages found: ")
-        for int_mod_num, str_mod_name in enumerate(list_imported_modules):
-            print("--> ", int_mod_num, ")", str_mod_name)
-        return list_imported_modules
-

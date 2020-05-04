@@ -12,19 +12,8 @@ from code_searcher.code_searcher_class import code_searcher_class
 __all__ = [
     # Core classes
     "code_searcher_class",
-    # 'additional_functions',
-    # 'decorators',
-    # 'working_with_files',
 ]
 
 
-# from pkg_resources import get_distribution, DistributionNotFound
 
-# try:
-#     # Change here if project is renamed and does not equal the package name
-#     dist_name = __name__
-#     __version__ = get_distribution(dist_name).version
-# except DistributionNotFound:
-#     __version__ = 'unknown'
-# finally:
-#     del get_distribution, DistributionNotFound
+

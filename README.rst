@@ -2,11 +2,28 @@
 CODE_SEARCHER
 =============
 
+.. image:: https://img.shields.io/github/last-commit/stas-prokopiev/code_searcher
+   :target: https://img.shields.io/github/last-commit/stas-prokopiev/code_searcher
+   :alt: GitHub last commit
+
+.. image:: https://img.shields.io/github/license/stas-prokopiev/code_searcher
+    :target: https://github.com/stas-prokopiev/code_searcher/blob/master/LICENSE.txt
+    :alt: GitHub license<space><space>
+
+.. image:: https://readthedocs.org/projects/local-simple-database/badge/?version=latest
+    :target: https://local-simple-database.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
 .. image:: https://travis-ci.org/stas-prokopiev/code_searcher.svg?branch=master
     :target: https://travis-ci.org/stas-prokopiev/code_searcher
 
+.. image:: https://img.shields.io/pypi/v/code_searcher
+   :target: https://img.shields.io/pypi/v/code_searcher
+   :alt: PyPI
 
-
+.. image:: https://img.shields.io/pypi/pyversions/code_searcher
+   :target: https://img.shields.io/pypi/pyversions/code_searcher
+   :alt: PyPI - Python Version
 
 .. contents:: **Table of Contents**
 

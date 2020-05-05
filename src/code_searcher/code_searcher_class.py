@@ -10,7 +10,6 @@ from __future__ import division
 from __future__ import print_function
 import time
 import os
-import sys
 from collections import defaultdict
 from collections import OrderedDict
 

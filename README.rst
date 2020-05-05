@@ -5,6 +5,9 @@ CODE_SEARCHER
 .. image:: https://travis-ci.org/stas-prokopiev/code_searcher.svg?branch=master
     :target: https://travis-ci.org/stas-prokopiev/code_searcher
 
+
+
+
 .. contents:: **Table of Contents**
 
 Short Overview.
@@ -28,28 +31,10 @@ tool to help support changes in functions signatures in both .py and .ipynb file
 It's becoming quite useful when your project outgrows 1k lines of code and manual replacement becomes too annoying
 (Too easy to overlook replacement somewhere).
 
-But in a time this package becomes something a little bit large than that.
-
-For example, this package allows you:
-
-    1) To get names of all outer packages used inside your project to build a short requirements.txt.
-    2) To get names of all functions that were defined but never used (to keep your code as short as possible)
-    3) To print all places where length of code line exceeds some N (If you want make your code complaint with pep8 code length condition)
-    4) To get content of all files with asked extensions directly.
-    5) To print some statistics about your codebase (Like number of non empty code lines per extension per folder).
-
 For more info check section: **Typical examples of Usage**
 
 Installation
 ============
-
-* Install via setup.py:
-
-.. code-block:: bash
-
-    git clone git@github.com:stas-prokopiev/code_searcher.git
-    cd code_searcher
-    python setup.py install
 
 * Install via pip:
 

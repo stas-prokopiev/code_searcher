@@ -2,12 +2,20 @@
 Changelog
 =========
 
-Version 0.1.7-8 (Some changes)
+
+
+
+Version 0.1.17 (Huge changes)
+=================================
+- Deleted all methods not directly necessary for searching inside files
+- All these methods soon will be available in my another python package.
+
+Version 0.1.7-16 (Some changes)
 =================================
 - Added searching with re patterns.
 - Added method to print places where line length exceeds certain limit.
 - Made functions to search 1) unused functions and 2) outer imported modules stable.
-- Small changes in format of functions output. 
+- Small changes in format of functions output.
 
 Version 0.1.6 (Huge changes)
 =================================

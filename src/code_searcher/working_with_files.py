@@ -1,16 +1,9 @@
 # -*- coding: utf-8 -*-
-"""
-
-This module is consists of additional functions for code searching
-through your library.
-"""
 # Standard library imports
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 import os
 import codecs
 import json
+from collections import defaultdict
 
 # Third party imports
 
@@ -66,8 +59,9 @@ def read_ipynb_file(str_path_to_file):
     return str_full_ipynb_file
 
 
-def get_list_str_path_all_files_with_given_extension(
-    str_folder_where_to_look, str_extension_to_look_for=".py",
+def get_dict_list_file_paths_by_ext(
+        str_folder_where_to_look,
+        list_str_extensions=[".py"],
 ):
     """Getting pathes to all files with asked extension in the folder
 
@@ -75,85 +69,36 @@ def get_list_str_path_all_files_with_given_extension(
     ----------
     str_folder_where_to_look : str
         path to most parent folder where to look for files
-    str_extension_to_look_for  : str
-        extension of file which to look for
+    list_str_extensions  : list
+        Extensions for which to look for
 
     Returns
     -------
     list
         pathes to all files with given extension inside the given folder
     """
-    # Add point before extension for the sake of getting only right files
-    if not str_extension_to_look_for.startswith("."):
-        str_extension_to_look_for = "." + str_extension_to_look_for
+    dict_list_file_paths_by_ext = defaultdict(list)
     # Using os.walk getting all files with asked extension
-    list_str_path_all_files_with_given_extension = []
-    for str_parent_folder, _, list_str_child_filenames in os.walk(
-        str_folder_where_to_look
-    ):
-        #####
-        # If file is ipynb, then do no take files from folder checkpoints
-        if str_extension_to_look_for == ".ipynb":
-            str_par_folder_name = os.path.basename(str_parent_folder)
-            if ".ipynb_checkpoints" == str_par_folder_name:
-                continue
-        #####
-        for str_filename in list_str_child_filenames:
-            if str_filename.endswith(str_extension_to_look_for):
-                list_str_path_all_files_with_given_extension.append(
-                    os.path.join(str_parent_folder, str_filename)
-                )
-    return list_str_path_all_files_with_given_extension
-
-
-def get_list_str_filenames_of_all_files_with_given_extension(
-    str_folder_where_to_look, str_extension_to_look_for=".py",
-):
-    """Getting names of all files with asked extension in the folder
-
-    Parameters
-    ----------
-    str_folder_where_to_look : str
-        path to most parent folder where to look for files
-    str_extension_to_look_for  : str
-        extension of file which to look for
-
-    Returns
-    -------
-    list
-        names of all files with given extension inside the given folder
-    """
-    # Add point before extension for the sake of getting only right files
-    if not str_extension_to_look_for.startswith("."):
-        str_extension_to_look_for = "." + str_extension_to_look_for
-    # Getting all filenames via os.walk
-    list_str_filenames = []
-    for _, _, list_str_ch_filenames in os.walk(str_folder_where_to_look):
-        for str_filename in list_str_ch_filenames:
-            if str_filename.endswith(str_extension_to_look_for):
-                list_str_filenames.append(str_filename)
-    # Clear filenames from extension .py
-    list_str_filenames_cleared = [
-        str_filename.replace(str_extension_to_look_for, "")
-        for str_filename in list_str_filenames
-    ]
-    return list_str_filenames_cleared
-
-
-def get_file_extension(str_file_path):
-    """Get file extension by file path
-
-    Parameters
-    ----------
-    str_file_path : str
-        path to file which extension to return
-
-    Returns
-    -------
-    str
-        string file extension for given file
-    """
-    return str(os.path.splitext(str_file_path)[1])
+    for str_parent_dir, _, list_filenames in os.walk(str_folder_where_to_look):
+        for str_ext in list_str_extensions:
+            list_files_with_extension = []
+            # Add point before extension name in needed
+            if not str_ext.startswith("."):
+                str_ext = "." + str_ext
+            #####
+            # If file is ipynb, then do no take files from folder checkpoints
+            if str_ext == ".ipynb":
+                str_par_folder_name = os.path.basename(str_parent_dir)
+                if ".ipynb_checkpoints" == str_par_folder_name:
+                    continue
+            #####
+            for str_filename in list_filenames:
+                if str_filename.endswith(str_ext):
+                    list_files_with_extension.append(
+                        os.path.join(str_parent_dir, str_filename)
+                    )
+            dict_list_file_paths_by_ext[str_ext] = list_files_with_extension
+    return dict_list_file_paths_by_ext
 
 
 def get_file_as_string(str_file_path):
@@ -169,8 +114,8 @@ def get_file_as_string(str_file_path):
     str
         string content inside file
     """
-    str_ext = get_file_extension(str_file_path)
-    if str_ext == ".ipynb":
+    str_file_ext = str(os.path.splitext(str_file_path)[1])
+    if str_file_ext == ".ipynb":
         return read_ipynb_file(str_file_path)
     else:
         return read_whole_file(str_file_path)

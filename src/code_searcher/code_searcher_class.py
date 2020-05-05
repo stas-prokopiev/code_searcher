@@ -56,11 +56,11 @@ class code_searcher_class:
     update_files(...)
         Re-search for all files in the folders and download them
 
-    search_code_in_the_library(...)
+    search(...)
         Searching some code inside whole library and
         print all occurrences in nice formatted way
 
-    search_code_in_the_library_with_re(...)
+    search_with_re(...)
         Searching some code inside library using regular expressions
 
     """
@@ -276,7 +276,7 @@ class code_searcher_class:
         )
         self.download_all_files()
 
-    def search_code(
+    def search(
             self,
             str_code_to_search,
             bool_is_to_search_case_sensitive=True,
@@ -303,7 +303,7 @@ class code_searcher_class:
             bool_is_to_search_case_sensitive=bool_is_to_search_case_sensitive,
         )
 
-    def search_code_with_re(self, str_re_template,):
+    def search_with_re(self, str_re_template,):
         """Searching some code inside library using regular expressions
 
         Parameters
@@ -438,3 +438,5 @@ class code_searcher_class:
                 print("=" * 79)
         print("Overall occurrences found: ", int_occurrences_found)
         return int_occurrences_found
+
+

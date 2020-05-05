@@ -20,10 +20,7 @@ def test_code_searcher_class():
     #####
     # Test search_code_in_the_library
     int_occurrences = \
-        code_searcher_obj.search_code_in_the_library(
-            str("class code_searcher_class")
-        )
-    assert int_occurrences == 1, \
-        "ERROR: 'search_code_in_the_library' is not working"
+        code_searcher_obj.search_code(str("class code_searcher_class"))
+    assert int_occurrences == 1, "ERROR: 'search_code' is not working"
     #####
     return 0

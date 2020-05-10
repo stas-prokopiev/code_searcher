@@ -205,7 +205,7 @@ Releases
 
 See `CHANGELOG <CHANGELOG.rst>`_.
 
-.. include:: CONTRIBUTING.rst
+See `CONTRIBUTING <CONTRIBUTING.rst>`_.
 
 Contacts
 ========

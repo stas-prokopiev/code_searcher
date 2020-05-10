@@ -3,6 +3,9 @@ Changelog
 =========
 
 
+Version 0.2.0
+=================================
+- No big changes, just thought that it's time to say that this library is v. 0.2
 
 Version 0.1.18 (Bug fixes)
 =================================

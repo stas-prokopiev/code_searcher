@@ -4,6 +4,12 @@ Changelog
 
 
 
+Version 0.1.18 (Bug fixes)
+=================================
+- Fixed bugs from previous update.
+- Updated readme.rst
+- Added logging
+- more test
 
 Version 0.1.17 (Huge changes)
 =================================

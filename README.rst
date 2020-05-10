@@ -200,20 +200,17 @@ Links
     * `readthedocs <https://code-searcher.readthedocs.io/en/latest/>`_
     * `GitHub <https://github.com/stas-prokopiev/code_searcher>`_
 
-Releases
-========
+Local links
+=============
 
-See `CHANGELOG <CHANGELOG.rst>`_.
-
-See `CONTRIBUTING <CONTRIBUTING.rst>`_.
+    * `CHANGELOG <CHANGELOG.rst>`_.
+    * `CONTRIBUTING <CONTRIBUTING.rst>`_.
 
 Contacts
 ========
 
     * Email: stas.prokopiev@gmail.com
-
     * `vk.com <https://vk.com/stas.prokopyev>`_
-
     * `Facebook <https://www.facebook.com/profile.php?id=100009380530321>`_
 
 License

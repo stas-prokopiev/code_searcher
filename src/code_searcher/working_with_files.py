@@ -4,10 +4,13 @@ import os
 import codecs
 import json
 from collections import defaultdict
+import logging
 
 # Third party imports
 
 # Local imports
+
+LOGGER = logging.getLogger("local_simple_database")
 
 
 def read_whole_file(str_path_to_file):
@@ -77,11 +80,20 @@ def get_dict_list_file_paths_by_ext(
     list
         pathes to all files with given extension inside the given folder
     """
+    LOGGER.debug("start get_dict_list_file_paths_by_ext:")
     dict_list_file_paths_by_ext = defaultdict(list)
     # Using os.walk getting all files with asked extension
     for str_parent_dir, _, list_filenames in os.walk(str_folder_where_to_look):
+        LOGGER.debug(
+            "---> Checking %d files in dir: %s",
+            len(list_filenames),
+            str_parent_dir
+        )
+        if os.path.basename(str_parent_dir) == "__pycache__":
+            LOGGER.debug("------> Cache folder found so continue")
+            continue
         for str_ext in list_str_extensions:
-            list_files_with_extension = []
+            list_files_of_ext = []
             # Add point before extension name in needed
             if not str_ext.startswith("."):
                 str_ext = "." + str_ext
@@ -94,10 +106,15 @@ def get_dict_list_file_paths_by_ext(
             #####
             for str_filename in list_filenames:
                 if str_filename.endswith(str_ext):
-                    list_files_with_extension.append(
+                    list_files_of_ext.append(
                         os.path.join(str_parent_dir, str_filename)
                     )
-            dict_list_file_paths_by_ext[str_ext] = list_files_with_extension
+            dict_list_file_paths_by_ext[str_ext] += list_files_of_ext
+            LOGGER.debug(
+                "------> Found files with ext %s: %d",
+                str_ext,
+                len(list_files_of_ext)
+            )
     return dict_list_file_paths_by_ext
 
 

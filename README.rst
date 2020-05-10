@@ -43,7 +43,7 @@ More info.
 =========================
 
 The main reason of building this package was to create universal
-tool to help support changes in functions signatures in both .py and .ipynb files.
+tool to help support changes in methods signatures in both .py and .ipynb files.
 
 It's becoming quite useful when your project outgrows 1k lines of code and manual replacement becomes too annoying
 (Too easy to overlook replacement somewhere).
@@ -62,9 +62,8 @@ Installation
 Typical examples of Usage
 =========================
 
-In any case, the first thing you need to do is to import the necessary module and initialize class obj.
-
-To do so you need to replace "path_to_folder_1" from the code below on most parent folder of all files you want to analyze.
+| In any case, the first thing you need to do is to import the necessary module and initialize class obj.
+| To do so you need to give pathes to folders in which all your files located (searcher will look deeper to full extent).
 
 If you have a code of all your projects structured
 that there is the main folder for all .py files and
@@ -73,7 +72,7 @@ there is the main folder for all .ipynb files then use them.
 .. code-block:: python
 
     from code_searcher import code_searcher_class
-    LIST_STR_FOLDERS_WHERE_TO_LOOK = ["path_to_folder_1", "path_to_folder_2", ...]
+    LIST_STR_FOLDERS_WHERE_TO_LOOK = ["path_to_dir_1", "path_to_dir_1", ...]
     code_searcher_obj = code_searcher_class(
             LIST_STR_FOLDERS_WHERE_TO_LOOK,
             list_str_file_extensions=[".py", "ipynb"],
@@ -92,24 +91,24 @@ But after finding all files they won't be downloaded again unless they were chan
 
 .. code-block:: python
 
-    code_searcher_obj.search_code_in_the_library(
-        str_code_to_search="print_places_where_line_length_exceed_N",
-        bool_is_to_search_case_sensitive=True,
-    )
+    code_searcher_obj.search("line_to_look_for")
 
 *Output:*
 
 .. code-block:: console
 
+    ===============================================================================
     For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
 
     --> For extension: .py
     ----> Found in:  code_searcher_class.py
-    ------> 0) line: 93  Code_line: print_places_where_line_length_exceed_N(
-    ------> 1) line: 444  Code_line: def print_places_where_line_length_exceed_N(
+    ------> 0) line: 93  Code_line: line_to_look_for(
+    ------> 1) line: 444  Code_line: def line_to_look_for(
 
     --> For extension: ipynb
     ----> NOTHING FOUND.
+    ===============================================================================
+    Overall occurrences found:  2
 
 
 2) To find all occurrences of some regular expression pattern
@@ -117,14 +116,13 @@ But after finding all files they won't be downloaded again unless they were chan
 
 .. code-block:: python
 
-    code_searcher_obj.search_code_in_the_library_with_re(
-        str_code_to_search="^from __future__ import[\s]+"
-    )
+    code_searcher_obj.search_with_re("^from __future__ import[\s]+")
 
 *Output:*
 
 .. code-block:: console
 
+    ===============================================================================
     For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
 
         --> For extension: .py
@@ -139,6 +137,8 @@ But after finding all files they won't be downloaded again unless they were chan
 
         --> For extension: ipynb
         ----> NOTHING FOUND.
+    ===============================================================================
+    Overall occurrences found:  4
 
 3) To see some statistics about your library.
 ------------------------------------------------------
@@ -152,22 +152,25 @@ But after finding all files they won't be downloaded again unless they were chan
 .. code-block:: console
 
     Folders to search in:
-    --> c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
-    --> c:\users\stanislav\desktop\dashboard
+    --> c:\users\stanislav\desktop\my_python_projects\code_searcher\src\code_searcher
+    --> c:\users\stanislav\desktop\my_python_projects\code_searcher\jupyter_notebooks
+
     Extensions to check:
     --> .py
-    --> ipynb
+    --> .ipynb
 
-    Files Statistic of current code library:
-    --> For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
-    --> Files_found = 5  Code_lines = 1203
-    ----> .py:  Files_found = 5;  Code_lines = 1203;
-    ----> ipynb:  Files_found = 0;  Code_lines = 0;
     ===============================================================================
-    --> For folder: c:\users\stanislav\desktop\dashboard
-    --> Files_found = 4  Code_lines = 175
+    Files Statistic of current code library:
+    ===============================================================================
+    --> For folder: c:\users\stanislav\desktop\my_python_projects\code_searcher\src\code_searcher
+    --> Files_found = 4  Code_lines = 664
+    ----> .py:  Files_found = 4;  Code_lines = 664;
+    ----> .ipynb:  Files_found = 0;  Code_lines = 0;
+    ===============================================================================
+    --> For folder: c:\users\stanislav\desktop\my_python_projects\code_searcher\jupyter_notebooks
+    --> Files_found = 1  Code_lines = 22
     ----> .py:  Files_found = 0;  Code_lines = 0;
-    ----> ipynb:  Files_found = 4;  Code_lines = 175;
+    ----> .ipynb:  Files_found = 1;  Code_lines = 22;
     ===============================================================================
 
 4) To add new files to examine.
@@ -200,16 +203,9 @@ Links
 Releases
 ========
 
-See `CHANGELOG <https://github.com/stas-prokopiev/code_searcher/blob/master/CHANGELOG.rst>`_.
+See `CHANGELOG <CHANGELOG.rst>`_.
 
-Contributing
-============
-
-- Fork it (<https://github.com/stas-prokopiev/code_searcher/fork>)
-- Create your feature branch (`git checkout -b feature/fooBar`)
-- Commit your changes (`git commit -am 'Add some fooBar'`)
-- Push to the branch (`git push origin feature/fooBar`)
-- Create a new Pull Request
+.. include:: CONTRIBUTING.rst
 
 Contacts
 ========

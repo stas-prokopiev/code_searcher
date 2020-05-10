@@ -10,6 +10,7 @@ import os
 import re
 from collections import defaultdict
 from collections import OrderedDict
+import logging
 
 # Third party imports
 
@@ -17,6 +18,7 @@ from collections import OrderedDict
 from code_searcher import working_with_files
 from code_searcher import additional_functions
 
+LOGGER = logging.getLogger("local_simple_database")
 
 class code_searcher_class:
     """
@@ -37,6 +39,13 @@ class code_searcher_class:
         {"folder_path_1": {"file_extension_1": [file_path_1, ...], ...}, ...}
     self.dict_str_file_content_by_file_path : dict
         {"file_path_1": file_1_content, "file_path_2": file_2_content, ...}
+
+
+
+    self.dict_parent_dir_by_file_path : dict
+        {"path_to_file_1": "path_to_parent_dir_given_by_user", ...}
+
+
     self.time_when_last_time_downloaded_files : float
         time.time() when last time downloaded files
         (need for not redownloading too often at least after 1 seconds)
@@ -97,6 +106,7 @@ class code_searcher_class:
         # {"path_to_file_1": float_time_when_last_modified, ...}
         self.dict_time_file_changed_by_path = defaultdict(float)
         self.dict_str_file_content_by_file_path = {}
+        self.dict_parent_dir_by_file_path = {}
 
         print("Downloading all files (it can be a long process, please wait.)")
         float_time_start = time.time()
@@ -123,17 +133,10 @@ class code_searcher_class:
         """
         self.download_all_files()
         str_obj_repr = ""
-        str_obj_repr += (
-            "This is an obj that allows you to search through "
-            "your project codebase\n"
-            "for getting names of available functions "
-            "use help() on current obj"
-            "\n\n"
-        )
         str_obj_repr += "Folders to search in: \n"
         for str_dir in self.list_str_dirs_where_to_look:
             str_obj_repr += "--> " + str_dir + "\n"
-        str_obj_repr += "Extensions to check: \n"
+        str_obj_repr += "\nExtensions to check: \n"
         for str_ext in self.list_str_file_extensions:
             str_obj_repr += "--> " + str_ext + "\n"
         str_obj_repr += self.get_file_stats_of_the_code_library()
@@ -153,7 +156,10 @@ class code_searcher_class:
 
         self.download_all_files()
         str_stats = "\n"
+        str_stats += "=" * 79 + "\n"
         str_stats += "Files Statistic of current code library:\n"
+        str_stats += "=" * 79 + "\n"
+
         # Print file statistic for every folder
         for str_dir in self.dict_list_file_paths_by_ext_by_dir:
             str_stats_dir = ""
@@ -213,7 +219,7 @@ class code_searcher_class:
                 )
         return dict_list_file_paths_by_ext_by_dir
 
-    def download_one_file(self, str_file_path):
+    def download_one_file(self, str_file_path, str_parent_dir):
         """"""
         # Check if file was deleted
         if not os.path.exists(str_file_path):
@@ -228,6 +234,7 @@ class code_searcher_class:
         if float_time_file_mod_before != float_time_file_changed:
             self.dict_str_file_content_by_file_path[str_file_path] = \
                 working_with_files.get_file_as_string(str_file_path)
+            self.dict_parent_dir_by_file_path[str_file_path] = str_parent_dir
             self.dict_time_file_changed_by_path[str_file_path] = \
                 float_time_file_changed
             return 1
@@ -245,21 +252,36 @@ class code_searcher_class:
         """
         # Check if enough time gone (1 seconds) after last download of files
         if time.time() - self.time_when_last_time_downloaded_files < 1.0:
+            LOGGER.debug(
+                "Less than 1 second gone since last download so continue"
+            )
             return 0
         self.time_when_last_time_downloaded_files = time.time()
         int_files_loaded = 0
         #####
         # For every folder where to look download code files
         # Only if they were updated
+        LOGGER.debug("START: download_all_files")
         for str_dir_path in self.dict_list_file_paths_by_ext_by_dir:
+            LOGGER.debug(
+                "---> Try to download files from: %s", str_dir_path
+            )
             dict_list_file_paths_by_ext = \
                 self.dict_list_file_paths_by_ext_by_dir[str_dir_path]
             #####
             for str_ext in dict_list_file_paths_by_ext:
+                LOGGER.debug(
+                    "------> Try to download files for ext: %s", str_ext
+                )
                 list_str_file_paths = dict_list_file_paths_by_ext[str_ext]
+                LOGGER.debug(
+                    "---------> Files found: %d", len(list_str_file_paths)
+                )
                 for str_file_path in list_str_file_paths:
-                    int_files_loaded += self.download_one_file(str_file_path)
+                    int_files_loaded += \
+                        self.download_one_file(str_file_path, str_dir_path)
             #####
+        LOGGER.debug("Files were really downloaded: %d", int_files_loaded)
         return int_files_loaded
 
     def update_files(self):
@@ -368,7 +390,11 @@ class code_searcher_class:
             ):
                 if not bool_is_entry_found_for_cur_file:
                     bool_is_entry_found_for_cur_file = True
-                    print("----> Found in: ", str_file_path)
+
+                    str_par_dir = \
+                        self.dict_parent_dir_by_file_path[str_file_path]
+                    str_rel_path = os.path.relpath(str_file_path, str_par_dir)
+                    print("----> Found in: ", str_rel_path)
                 print(
                     "------> {})".format(int_occurrences_found),
                     "line:", int_line_num,
@@ -376,7 +402,6 @@ class code_searcher_class:
                 )
                 int_occurrences_found += 1
         return int_occurrences_found
-
 
     def search_processes_common(
             self,
@@ -405,20 +430,14 @@ class code_searcher_class:
         """
         # 1) If not necessary to search case sensitive, then lower everything
         int_occurrences_found = 0
-        print("=" * 79)
         # For every folder searching through all files inside folder
         for str_dir in self.dict_list_file_paths_by_ext_by_dir:
             dict_list_file_paths_by_ext = \
                 self.dict_list_file_paths_by_ext_by_dir[str_dir]
-
+            print("=" * 79)
             print("For folder: {folder}".format(folder=str_dir))
-            for str_ext in dict_list_file_paths_by_ext:
-                if len(dict_list_file_paths_by_ext) > 1:
-                    print("")
-                print("--> For extension: {extension}".format(
-                    extension=str_ext
-                ))
-
+            for int_ext_num, str_ext in enumerate(dict_list_file_paths_by_ext):
+                print("--> For extension: {}".format(str_ext))
                 int_found_for_ext = 0
                 # For every file search occurrences of asked code
                 for str_file_path in dict_list_file_paths_by_ext[str_ext]:
@@ -432,11 +451,12 @@ class code_searcher_class:
                 #####
                 if not int_found_for_ext:
                     print("----> NOTHING FOUND.")
-            int_occurrences_found += int_found_for_ext
-            #####
-            if int_occurrences_found:
-                print("=" * 79)
-        print("Overall occurrences found: ", int_occurrences_found)
+                # If extension is not last then add a new line to print
+                if int_ext_num != len(dict_list_file_paths_by_ext) - 1:
+                    print("")
+                int_occurrences_found += int_found_for_ext
+        print("=" * 79)
+        print("\nOverall occurrences found: ", int_occurrences_found)
         return int_occurrences_found
 
 

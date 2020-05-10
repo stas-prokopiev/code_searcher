@@ -1,16 +1,8 @@
-============
 Contributing
 ============
 
-Please feel free to write directly to me.
-
-* Stanislav Prokopyev <stas.prokopiev@gmail.com>
-
-Contacts
-========
-
-    * email: stas.prokopiev@gmail.com
-
-    * `vk.com <https://vk.com/stas.prokopyev>`_
-
-    * `Facebook <https://www.facebook.com/profile.php?id=100009380530321>`_
+- Fork it (<https://github.com/stas-prokopiev/code_searcher/fork>)
+- Create your feature branch (`git checkout -b feature/fooBar`)
+- Commit your changes (`git commit -am 'Add some fooBar'`)
+- Push to the branch (`git push origin feature/fooBar`)
+- Create a new Pull Request

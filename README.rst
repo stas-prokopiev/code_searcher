@@ -199,12 +199,8 @@ Links
     * `Pypi <https://pypi.org/project/code-searcher/>`_
     * `readthedocs <https://code-searcher.readthedocs.io/en/latest/>`_
     * `GitHub <https://github.com/stas-prokopiev/code_searcher>`_
-
-Local links
-=============
-
-    * `CHANGELOG <CHANGELOG.rst>`_.
-    * `CONTRIBUTING <CONTRIBUTING.rst>`_.
+    * `CHANGELOG <https://github.com/stas-prokopiev/code_searcher/blob/master/CHANGELOG.rst>`_.
+    * `CONTRIBUTING <https://github.com/stas-prokopiev/code_searcher/blob/master/CONTRIBUTING.rst>`_.
 
 Contacts
 ========

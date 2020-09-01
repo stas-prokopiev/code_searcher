@@ -7,26 +7,26 @@ import logging
 
 # Local imports
 import code_searcher
-from code_searcher.code_searcher_class import code_searcher_class
+from code_searcher.code_searcher_class import CodeSearcher
 
 logging.basicConfig(level=logging.DEBUG)
 
 
-def test_code_searcher_class():
+def test_CodeSearcher():
     """"""
     str_code_searcher_file = os.path.abspath(code_searcher.__file__)
     str_folder_with_files = os.path.dirname(str_code_searcher_file)
-    code_searcher_obj = code_searcher_class(
+    code_searcher_obj = CodeSearcher(
         [str_folder_with_files],
         list_str_file_extensions=[".py", ".ipynb"],
     )
     #####
     # Test main search functions search
     int_occurrences = \
-        code_searcher_obj.search("class code_searcher_class")
+        code_searcher_obj.search("class CodeSearcher")
     assert int_occurrences == 1, "ERROR: 'search' is not working"
     int_occurrences = code_searcher_obj.search(
-        "CLASS code_searcher_class",
+        "CLASS CodeSearcher",
         bool_is_to_search_case_sensitive=True,
     )
     assert int_occurrences == 0, \

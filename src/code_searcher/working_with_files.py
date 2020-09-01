@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""File with all methods connected to working with files"""
 # Standard library imports
 import os
 import codecs
@@ -10,7 +11,7 @@ import logging
 
 # Local imports
 
-LOGGER = logging.getLogger("local_simple_database")
+LOGGER = logging.getLogger("code_searcher")
 
 
 def read_whole_file(str_path_to_file):
@@ -101,7 +102,7 @@ def get_dict_list_file_paths_by_ext(
             # If file is ipynb, then do no take files from folder checkpoints
             if str_ext == ".ipynb":
                 str_par_folder_name = os.path.basename(str_parent_dir)
-                if ".ipynb_checkpoints" == str_par_folder_name:
+                if str_par_folder_name == ".ipynb_checkpoints":
                     continue
             #####
             for str_filename in list_filenames:
@@ -134,6 +135,4 @@ def get_file_as_string(str_file_path):
     str_file_ext = str(os.path.splitext(str_file_path)[1])
     if str_file_ext == ".ipynb":
         return read_ipynb_file(str_file_path)
-    else:
-        return read_whole_file(str_file_path)
-
+    return read_whole_file(str_file_path)

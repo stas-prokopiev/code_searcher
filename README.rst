@@ -71,9 +71,9 @@ there is the main folder for all .ipynb files then use them.
 
 .. code-block:: python
 
-    from code_searcher import code_searcher_class
+    from code_searcher import CodeSearcher
     LIST_STR_FOLDERS_WHERE_TO_LOOK = ["path_to_dir_1", "path_to_dir_1", ...]
-    code_searcher_obj = code_searcher_class(
+    code_searcher_obj = CodeSearcher(
             LIST_STR_FOLDERS_WHERE_TO_LOOK,
             list_str_file_extensions=[".py", "ipynb"],
     )
@@ -101,7 +101,7 @@ But after finding all files they won't be downloaded again unless they were chan
     For folder: c:\users\stanislav\desktop\my_python_projects\code_search_engine\project\code_searcher\src\code_searcher
 
     --> For extension: .py
-    ----> Found in:  code_searcher_class.py
+    ----> Found in:  CodeSearcher.py
     ------> 0) line: 93  Code_line: line_to_look_for(
     ------> 1) line: 444  Code_line: def line_to_look_for(
 
@@ -128,7 +128,7 @@ But after finding all files they won't be downloaded again unless they were chan
         --> For extension: .py
         ----> Found in:  additional_functions.py
         ------> 0) line: 12  Code_line: from __future__ import print_function
-        ----> Found in:  code_searcher_class.py
+        ----> Found in:  CodeSearcher.py
         ------> 1) line: 11  Code_line: from __future__ import print_function
         ----> Found in:  decorators.py
         ------> 2) line: 12  Code_line: from __future__ import print_function

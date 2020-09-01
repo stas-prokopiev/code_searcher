@@ -1,4 +1,5 @@
  # -*- coding: utf-8 -*-
+"""Additional functions"""
 # Standard library imports
 import logging
 
@@ -6,7 +7,7 @@ import logging
 
 # Local imports
 
-LOGGER = logging.getLogger("local_simple_database")
+LOGGER = logging.getLogger("code_searcher")
 
 def func_simple_search_of_code(str_code_to_search, str_where_to_search):
     """Getting names of all modules imported in the python code
@@ -35,4 +36,3 @@ def func_simple_search_of_code(str_code_to_search, str_where_to_search):
     # if bool_is_code_in_quotes:
     #     return False
     # return True
-

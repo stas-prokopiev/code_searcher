@@ -18,9 +18,9 @@ import logging
 from code_searcher import working_with_files
 from code_searcher import additional_functions
 
-LOGGER = logging.getLogger("local_simple_database")
+LOGGER = logging.getLogger("code_searcher")
 
-class code_searcher_class:
+class CodeSearcher(object):
     """
     A class used to do search operations on whole code of project
 
@@ -75,9 +75,9 @@ class code_searcher_class:
     """
 
     def __init__(
-        self,
-        list_str_dirs_where_to_look,
-        list_str_file_extensions=[".py", "ipynb"],
+            self,
+            list_str_dirs_where_to_look,
+            list_str_file_extensions=[".py", "ipynb"],
     ):
         """Init object
 
@@ -220,11 +220,19 @@ class code_searcher_class:
         return dict_list_file_paths_by_ext_by_dir
 
     def download_one_file(self, str_file_path, str_parent_dir):
-        """"""
+        """Download all content of 1 file
+
+        Args:
+            str_file_path (str): Path to file which to download
+            str_parent_dir (str): From which parent dir this file is
+
+        Returns:
+            bool: Flag if file was updated
+        """
         # Check if file was deleted
         if not os.path.exists(str_file_path):
             self.dict_str_file_content_by_file_path[str_file_path] = ""
-            return 0
+            return False
         #####
         # Check if file was modified and if so redownload it
         float_time_file_changed = \
@@ -237,8 +245,8 @@ class code_searcher_class:
             self.dict_parent_dir_by_file_path[str_file_path] = str_parent_dir
             self.dict_time_file_changed_by_path[str_file_path] = \
                 float_time_file_changed
-            return 1
-        return 0
+            return True
+        return False
 
     def download_all_files(self):
         """
@@ -385,8 +393,8 @@ class code_searcher_class:
         bool_is_entry_found_for_cur_file = False
         for int_line_num, str_line in enumerate(str_full_file.splitlines()):
             if func_check_if_string_is_in_the_line(
-                str_code_to_search,
-                str_line,
+                    str_code_to_search,
+                    str_line,
             ):
                 if not bool_is_entry_found_for_cur_file:
                     bool_is_entry_found_for_cur_file = True
@@ -458,5 +466,3 @@ class code_searcher_class:
         print("=" * 79)
         print("\nOverall occurrences found: ", int_occurrences_found)
         return int_occurrences_found
-
-
